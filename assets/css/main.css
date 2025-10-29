@@ -1,0 +1,149 @@
+@import url('https://fonts.googleapis.com/css2?family=Mulish:wght@400;600;700;800&display=swap');
+
+:root {
+  /* Colors */
+  --bg-color: #12141A;
+  --menu-link: #FFFFFF;
+  --secondary-outline: #FFFFFF;
+  --primary-bg: #FB213E;
+  --white-white-alpha-64: #FFFFFFA3;
+  
+  /* Spacing */
+  --spacing-md: 12px;
+  --spacing-lg: 16px;
+  --spacing-3xl: 48px;
+  
+  /* Border Radius */
+  --primary-radius: 8px;
+  
+  /* Font Sizes */
+  --font-size-sm: 14px;
+  --font-size-md: 16px;
+  --heading-h1: 48px;
+  --heading-h2: 36px;
+  --heading-h3: 24px;
+  
+  /* Line Heights */
+  --heading-h1-line-height: 56px;
+  --heading-h2-line-height: 44px;
+  --text-sm-line-height: 20px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Mulish', sans-serif;
+  background: var(--bg-color);
+  color: var(--menu-link);
+}
+
+/* Typography */
+h1 {
+  font-family: 'Mulish', sans-serif;
+  font-weight: 800;
+  font-style: normal;
+  font-size: var(--heading-h1);
+  line-height: var(--heading-h1-line-height);
+  letter-spacing: 0%;
+}
+
+h2 {
+  font-family: 'Mulish', sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  font-size: var(--heading-h2);
+  line-height: var(--heading-h2-line-height);
+  letter-spacing: 0%;
+}
+
+h3 {
+  font-family: 'Mulish', sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  font-size: var(--font-size-md);
+  line-height: 24px;
+  letter-spacing: 0%;
+}
+
+p {
+  font-family: 'Mulish', sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: var(--font-size-sm);
+  line-height: var(--text-sm-line-height);
+  letter-spacing: 0%;
+  color: var(--white-white-alpha-64);
+}
+
+/* Navigation Link */
+.nav-link {
+  font-family: 'Mulish', sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  font-size: var(--font-size-md);
+  line-height: 16px;
+  letter-spacing: 0%;
+  color: var(--menu-link);
+  text-decoration: none;
+  transition: opacity 0.3s ease;
+}
+
+.nav-link:hover {
+  opacity: 0.8;
+}
+
+/* Button Base */
+.btn {
+  font-family: 'Mulish', sans-serif;
+  font-weight: 600;
+  font-size: var(--font-size-md);
+  padding: var(--spacing-md) var(--spacing-lg);
+  border-radius: var(--primary-radius);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 1px solid;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-decoration: none;
+}
+
+/* Button Login (Secondary) */
+.btn-login {
+  height: 48px;
+  background: transparent;
+  color: var(--menu-link);
+  border: 1px solid var(--secondary-outline);
+}
+
+.btn-login:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Button Sign Up (Primary) */
+.btn-signup {
+  width: 101px;
+  height: 48px;
+  background: var(--primary-bg);
+  color: var(--menu-link);
+  border: 1px solid #FF4043;
+  border-image-source: linear-gradient(0deg, #FF4043, #FF4043),
+    linear-gradient(180deg, rgba(255, 120, 127, 0) 0%, #FF787F 100%);
+  box-shadow: 0px 4px 16.6px 0px rgba(251, 33, 62, 0.32);
+}
+
+.btn-signup:hover {
+  background: #E01E37;
+  box-shadow: 0px 6px 20px 0px rgba(251, 33, 62, 0.45);
+}
+
+.btn-signup:active {
+  transform: translateY(1px);
+}
+
+
