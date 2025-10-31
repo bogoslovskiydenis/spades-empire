@@ -575,7 +575,7 @@ const toggleFaq = (index: number) => {
 .faq-list {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 8px;
   max-width: 1280px;
   margin: 0 auto;
 }
