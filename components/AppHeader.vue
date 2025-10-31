@@ -7,23 +7,44 @@
       </NuxtLink>
 
       <!-- Navigation -->
-      <nav class="header-nav">
-        <NuxtLink to="/" class="nav-link">Home</NuxtLink>
-        <NuxtLink to="/casino" class="nav-link">Casino</NuxtLink>
-        <NuxtLink to="/bonuses" class="nav-link">Bonuses</NuxtLink>
-        <NuxtLink to="/contact" class="nav-link">Contact us</NuxtLink>
+      <nav class="header-nav" :class="{ 'is-open': menuOpen }">
+        <NuxtLink to="/" class="nav-link" @click="closeMenu">Home</NuxtLink>
+        <NuxtLink to="/casino" class="nav-link" @click="closeMenu">Casino</NuxtLink>
+        <NuxtLink to="/bonuses" class="nav-link" @click="closeMenu">Bonuses</NuxtLink>
+        <NuxtLink to="/contact" class="nav-link" @click="closeMenu">Contact us</NuxtLink>
       </nav>
 
-      <!-- Auth Buttons -->
+      <!-- Auth Buttons & Burger -->
       <div class="header-actions">
-        <button class="btn-user" aria-label="User profile">
-          <img src="~/assets/images/user.svg" alt="User" class="user-icon" />
-        </button>
         <AppButton variant="signup">Sign Up</AppButton>
+        
+        <!-- Burger Menu Button -->
+        <button 
+          class="burger-menu" 
+          :class="{ 'is-active': menuOpen }"
+          @click="toggleMenu"
+          aria-label="Toggle menu"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
       </div>
     </div>
   </header>
 </template>
+
+<script setup lang="ts">
+const menuOpen = ref(false)
+
+const toggleMenu = () => {
+  menuOpen.value = !menuOpen.value
+}
+
+const closeMenu = () => {
+  menuOpen.value = false
+}
+</script>
 
 <style scoped>
 .header {
@@ -75,27 +96,38 @@
   justify-self: end;
 }
 
-.btn-user {
-  width: 48px;
-  height: 48px;
-  border-radius: var(--primary-radius);
-  border: 1px solid var(--secondary-outline);
+/* Burger Menu */
+.burger-menu {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 30px;
+  height: 24px;
   background: transparent;
-  color: var(--menu-link);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  border: none;
   cursor: pointer;
+  padding: 0;
+  z-index: 1001;
+}
+
+.burger-menu span {
+  width: 100%;
+  height: 3px;
+  background: var(--menu-link);
+  border-radius: 2px;
   transition: all 0.3s ease;
 }
 
-.btn-user:hover {
-  background: rgba(255, 255, 255, 0.1);
+.burger-menu.is-active span:nth-child(1) {
+  transform: translateY(10.5px) rotate(45deg);
 }
 
-.user-icon {
-  width: 24px;
-  height: 24px;
+.burger-menu.is-active span:nth-child(2) {
+  opacity: 0;
+}
+
+.burger-menu.is-active span:nth-child(3) {
+  transform: translateY(-10.5px) rotate(-45deg);
 }
 
 /* Mobile Menu Toggle (hidden by default) */
@@ -116,12 +148,44 @@
 }
 
 @media (max-width: 768px) {
-  .header-nav {
-    display: none;
-  }
-  
   .header-container {
     gap: 16px;
+    grid-template-columns: auto 1fr;
+  }
+
+  .burger-menu {
+    display: flex;
+  }
+
+  .header-nav {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 50%;
+    height: 100vh;
+    background: #171821;
+    flex-direction: column;
+    gap: 0;
+    padding-top: 100px;
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.5);
+    z-index: 999;
+  }
+
+  .header-nav.is-open {
+    transform: translateX(0);
+  }
+
+  .header-nav .nav-link {
+    padding: 20px 40px;
+    width: 100%;
+    text-align: left;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  .header-nav .nav-link:hover {
+    background: rgba(255, 255, 255, 0.05);
   }
 }
 </style>

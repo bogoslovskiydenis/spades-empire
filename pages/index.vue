@@ -53,7 +53,7 @@
 
       <!-- Features Container -->
       <div class="features-container">
-        <h2 class="features-title">Features</h2>
+        <h1 class="features-title">Features</h1>
         <div class="features-grid">
           <div class="feature-card">
             <div class="feature-icon">
@@ -87,41 +87,98 @@
             <p class="feature-card-text">Start your adventure with 1st Deposit Bonus!</p>
           </div>
         </div>
+
+        <!-- Features Description -->
+        <div class="features-description">
+          <h3 class="features-description-title">Duis aute irure</h3>
+          <p class="features-description-text text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        </div>
       </div>
 
       <!-- Bonuses Container -->
       <div class="bonuses-container">
-        <h2 class="bonuses-title">Bonuses</h2>
+        <h1 class="bonuses-title">Bonuses</h1>
         <div class="bonuses-grid">
-          <div class="bonus-card bonus-card-1">
+          <div class="bonus-card">
             <div class="bonus-content">
               <p class="bonus-label">Welcome 1st Deposit Bonus</p>
               <h3 class="bonus-title">100% up to €300<br/>+ 100 FS + 3 Coins</h3>
               <p class="bonus-text">Start your adventure with 1st Deposit Bonus!</p>
             </div>
+            <div class="bonus-image">
+              <img src="~/assets/images/bonus1.png" alt="Welcome Bonus" />
+            </div>
           </div>
 
-          <div class="bonus-card bonus-card-2">
+          <div class="bonus-card">
             <div class="bonus-content">
               <p class="bonus-label">Loyalty cashback</p>
               <h3 class="bonus-title">Up to 15%</h3>
               <p class="bonus-text">Unlock new titles in the Loyalty Program and boost your weekly cashback!</p>
             </div>
+            <div class="bonus-image">
+              <img src="~/assets/images/bonus2.png" alt="Loyalty cashback" />
+            </div>
           </div>
 
-          <div class="bonus-card bonus-card-3">
+          <div class="bonus-card">
             <div class="bonus-content">
               <p class="bonus-label">Weekly Bonus Wednesday</p>
               <h3 class="bonus-title">35% Bonus up to 150€</h3>
               <p class="bonus-text">Min deposit € 20, Wagering x45</p>
             </div>
+            <div class="bonus-image">
+              <img src="~/assets/images/bonus3.png" alt="Weekly Bonus" />
+            </div>
           </div>
 
-          <div class="bonus-card bonus-card-4">
+          <div class="bonus-card">
             <div class="bonus-content">
               <p class="bonus-label">Weekend Bonus Sunday</p>
               <h3 class="bonus-title">50% Bonus up to 50€<br/>+ 5 Coins</h3>
               <p class="bonus-text">Min deposit € 30, Wagering x45</p>
+            </div>
+            <div class="bonus-image">
+              <img src="~/assets/images/bonus4.png" alt="Weekend Bonus" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FAQ Container -->
+      <div class="faq-container">
+        <h1 class="faq-title">FAQ</h1>
+        <div class="faq-list">
+          <div 
+            v-for="(item, index) in faqItems" 
+            :key="index" 
+            class="faq-item"
+            :class="{ 'is-open': openFaqIndex === index }"
+          >
+            <button 
+              class="faq-question" 
+              @click="toggleFaq(index)"
+            >
+              <span>{{ item.question }}</span>
+              <svg 
+                class="faq-icon" 
+                width="24" 
+                height="24" 
+                viewBox="0 0 24 24" 
+                fill="none" 
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path 
+                  d="M6 9L12 15L18 9" 
+                  stroke="currentColor" 
+                  stroke-width="2" 
+                  stroke-linecap="round" 
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </button>
+            <div class="faq-answer" v-show="openFaqIndex === index">
+              <p>{{ item.answer }}</p>
             </div>
           </div>
         </div>
@@ -131,7 +188,40 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue';
 
+const openFaqIndex = ref<number | null>(0);
+
+const faqItems = ref([
+  {
+    question: 'Lorem ipsum dolor sit',
+    answer: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
+  },
+  {
+    question: 'Ut enim ad minim veniam',
+    answer: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
+  },
+  {
+    question: 'Excepteur sint occaecat',
+    answer: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
+  },
+  {
+    question: 'Duis aute irure dolor',
+    answer: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
+  },
+  {
+    question: 'Ut enim ad minim veniam',
+    answer: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
+  },
+  {
+    question: 'Excepteur sint occaecat',
+    answer: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
+  }
+]);
+
+const toggleFaq = (index: number) => {
+  openFaqIndex.value = openFaqIndex.value === index ? null : index;
+};
 </script>
 
 <style scoped>
@@ -293,12 +383,6 @@
 }
 
 .features-title {
-  font-family: 'Mulish', sans-serif;
-  font-weight: 800;
-  font-size: var(--heading-h1);
-  line-height: var(--heading-h1-line-height);
-  letter-spacing: 0%;
-  color: #FFFFFF;
   text-align: center;
   margin-bottom: 48px;
 }
@@ -348,7 +432,7 @@
 .feature-card-title {
   font-family: 'Mulish', sans-serif;
   font-weight: 700;
-  font-size: var(--heading-h2);
+  font-size: var(--heading-h3);
   line-height: var(--heading-h2-line-height);
   letter-spacing: 0%;
   color: #FFFFFF;
@@ -365,6 +449,22 @@
   margin: 0;
 }
 
+.features-description {
+  margin-top: 24px;
+  text-align: center;
+}
+
+.features-description-title {
+  margin-bottom: 8px;
+  color: #FFFFFF;
+}
+
+.features-description-text {
+  color: var(--white-white-alpha-64);
+  margin: 0 auto;
+  max-width: 100%;
+}
+
 /* Bonuses Section */
 .bonuses-container {
   width: 100%;
@@ -372,12 +472,6 @@
 }
 
 .bonuses-title {
-  font-family: 'Mulish', sans-serif;
-  font-weight: 800;
-  font-size: var(--heading-h1);
-  line-height: var(--heading-h1-line-height);
-  letter-spacing: 0%;
-  color: #FFFFFF;
   text-align: center;
   margin-bottom: 48px;
 }
@@ -398,12 +492,8 @@
   position: relative;
   overflow: hidden;
   background-color: #171821;
-  background-size: contain;
-  background-position: right center;
-  background-repeat: no-repeat;
   display: flex;
-  align-items: center;
-  gap: 16px;
+  align-items: flex-start;
   transition: all 0.3s ease;
 }
 
@@ -412,36 +502,40 @@
   box-shadow: 0px 8px 32px rgba(0, 0, 0, 0.5);
 }
 
-.bonus-card-1 {
-  background-image: url('~/assets/images/bonus1.svg');
-}
-
-.bonus-card-2 {
-  background-image: url('~/assets/images/bonus2.svg');
-}
-
-.bonus-card-3 {
-  background-image: url('~/assets/images/bonus3.svg');
-}
-
-.bonus-card-4 {
-  background-image: url('~/assets/images/bonus4.svg');
-}
-
 .bonus-content {
   position: relative;
   z-index: 2;
-  max-width: 50%;
+  max-width: 60%;
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
 
+.bonus-image {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 50%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+.bonus-image img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  max-height: 240px;
+}
+
 .bonus-label {
   font-family: 'Mulish', sans-serif;
-  font-weight: 600;
-  font-size: var(--font-size-sm);
-  line-height: var(--text-sm-line-height);
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
   letter-spacing: 0%;
   color: #FFC107;
   margin: 0;
@@ -450,7 +544,7 @@
 .bonus-title {
   font-family: 'Mulish', sans-serif;
   font-weight: 700;
-  font-size: var(--heading-h3);
+  font-size: 24px;
   line-height: 32px;
   letter-spacing: 0%;
   color: #FFFFFF;
@@ -465,6 +559,91 @@
   letter-spacing: 0%;
   color: var(--white-white-alpha-64);
   margin: 0;
+}
+
+/* FAQ Section */
+.faq-container {
+  width: 100%;
+  margin-top: 64px;
+}
+
+.faq-title {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.faq-item {
+  background: #171821;
+  border-radius: 16px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.faq-question {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 32px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-family: 'Mulish', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0%;
+  color: #FFFFFF;
+  text-align: left;
+  transition: all 0.3s ease;
+}
+
+.faq-question:hover {
+  opacity: 0.8;
+}
+
+.faq-icon {
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+  color: #FFFFFF;
+}
+
+.faq-item.is-open .faq-icon {
+  transform: rotate(180deg);
+}
+
+.faq-answer {
+  padding: 0 32px 24px 32px;
+  animation: fadeIn 0.3s ease;
+}
+
+.faq-answer p {
+  font-family: 'Mulish', sans-serif;
+  font-weight: 400;
+  font-size: var(--font-size-sm);
+  line-height: var(--text-sm-line-height);
+  letter-spacing: 0%;
+  color: var(--white-white-alpha-64);
+  margin: 0;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @media (max-width: 1400px) {
@@ -487,8 +666,24 @@
     margin: 0 auto;
   }
 
+  .bonus-card {
+    flex-direction: column-reverse;
+  }
+
   .bonus-content {
-    max-width: 60%;
+    max-width: 100%;
+  }
+
+  .bonus-image {
+    position: relative;
+    width: 100%;
+    height: auto;
+    transform: none;
+    top: auto;
+  }
+
+  .bonus-image img {
+    max-height: 200px;
   }
 }
 
@@ -524,16 +719,60 @@
   }
 
   .bonus-card {
+    width: calc(50% - 12px);
     height: auto;
     min-height: 240px;
+    flex-direction: column-reverse;
   }
 
   .bonus-content {
-    max-width: 70%;
+    max-width: 100%;
+  }
+
+  .bonus-label {
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  .bonus-title {
+    font-size: 20px;
+    line-height: 24px;
+  }
+
+  .bonus-image {
+    position: relative;
+    width: 100%;
+    height: auto;
+    transform: none;
+    top: auto;
+  }
+
+  .bonus-image img {
+    max-height: 200px;
   }
 
   .bonuses-container {
     margin-top: 60px;
+  }
+
+  .faq-container {
+    margin-top: 48px;
+  }
+
+  .faq-question {
+    padding: 20px 24px;
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  .faq-answer {
+    padding: 0 24px 20px 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .bonus-card {
+    width: 100%;
   }
 }
 </style>

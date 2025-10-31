@@ -41,30 +41,27 @@ body {
   color: var(--menu-link);
 }
 
-/* Typography */
+/* Typography - Desktop */
 h1 {
   font-family: 'Mulish', sans-serif;
   font-weight: 800;
-  font-style: normal;
-  font-size: var(--heading-h1);
-  line-height: var(--heading-h1-line-height);
+  font-size: 40px;
+  line-height: 48px;
   letter-spacing: 0%;
 }
 
 h2 {
   font-family: 'Mulish', sans-serif;
   font-weight: 700;
-  font-style: normal;
-  font-size: var(--heading-h2);
-  line-height: var(--heading-h2-line-height);
+  font-size: 24px;
+  line-height: 32px;
   letter-spacing: 0%;
 }
 
 h3 {
   font-family: 'Mulish', sans-serif;
   font-weight: 700;
-  font-style: normal;
-  font-size: var(--font-size-md);
+  font-size: 16px;
   line-height: 24px;
   letter-spacing: 0%;
 }
@@ -72,19 +69,76 @@ h3 {
 p {
   font-family: 'Mulish', sans-serif;
   font-weight: 400;
-  font-style: normal;
   font-size: var(--font-size-sm);
   line-height: var(--text-sm-line-height);
   letter-spacing: 0%;
   color: var(--white-white-alpha-64);
 }
 
+/* Text Styles */
+.text-xl {
+  font-family: 'Mulish', sans-serif;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 32px;
+}
+
+.text-md {
+  font-family: 'Mulish', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.text-xs {
+  font-family: 'Mulish', sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+/* Button Labels */
+.button-label-sm {
+  font-family: 'Mulish', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 14px;
+}
+
+/* Label Styles */
+.label-md {
+  font-family: 'Mulish', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 16px;
+}
+
+.label-sm {
+  font-family: 'Mulish', sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 14px;
+}
+
+.label-xs {
+  font-family: 'Mulish', sans-serif;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 12px;
+}
+
+.label-xxs {
+  font-family: 'Mulish', sans-serif;
+  font-weight: 600;
+  font-size: 10px;
+  line-height: 10px;
+}
+
 /* Navigation Link */
 .nav-link {
   font-family: 'Mulish', sans-serif;
   font-weight: 600;
-  font-style: normal;
-  font-size: var(--font-size-md);
+  font-size: 16px;
   line-height: 16px;
   letter-spacing: 0%;
   color: var(--menu-link);
@@ -144,6 +198,69 @@ p {
 
 .btn-signup:active {
   transform: translateY(1px);
+}
+
+/* Mobile Typography - Phone */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 24px;
+    line-height: 32px;
+  }
+
+  h2 {
+    font-size: 20px;
+    line-height: 24px;
+  }
+
+  h3 {
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  .text-xl {
+    font-size: 24px;
+    line-height: 24px;
+  }
+
+  .text-md {
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  .text-xs {
+    font-size: 12px;
+    line-height: 16px;
+  }
+
+  .button-label-sm {
+    font-size: 14px;
+    line-height: 14px;
+  }
+
+  .label-md {
+    font-size: 16px;
+    line-height: 16px;
+  }
+
+  .label-sm {
+    font-size: 14px;
+    line-height: 14px;
+  }
+
+  .label-xs {
+    font-size: 12px;
+    line-height: 12px;
+  }
+
+  .label-xxs {
+    font-size: 10px;
+    line-height: 10px;
+  }
+
+  .nav-link {
+    font-size: 16px;
+    line-height: 16px;
+  }
 }
 
 
