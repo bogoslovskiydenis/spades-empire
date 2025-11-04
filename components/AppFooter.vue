@@ -107,7 +107,7 @@
         <p>2025 © SpinEmpire.com. All Rights Reserved</p>
         <div class="footer-legal">
           <NuxtLink to="/privacy-policy" class="legal-link">Privacy Policy</NuxtLink>
-          <NuxtLink to="/terms" class="legal-link">Terms & Conditions</NuxtLink>
+          <NuxtLink to="/terms-and-conditions" class="legal-link">Terms & Conditions</NuxtLink>
         </div>
       </div>
     </div>
