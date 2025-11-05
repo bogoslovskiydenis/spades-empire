@@ -187,12 +187,32 @@
   </div>
 </template>
 
-<script setup lang="ts">
-import { ref } from 'vue';
-import AppButton from '~/components/AppButton.vue';
-import heroBg from '~/assets/images/HeroBg.png';
+<script setup>
+import { ref, onMounted } from 'vue'
+import AppButton from '~/components/AppButton.vue'
+import heroBg from '~/assets/images/HeroBg.png'
 
-const openFaqIndex = ref<number | null>(0);
+// Получаем API функции из composable
+const { fetchMainPage } = useWordpressApi()
+
+// Загружаем данные при монтировании компонента для проверки через консоль
+onMounted(async () => {
+  try {
+    const data = await fetchMainPage()
+    console.log('=== Данные из WordPress API ===')
+    console.log('Полный ответ:', data)
+    console.log('=== Структура body ===')
+    console.log('Banner Title:', data?.body?.banner_title)
+    console.log('Banner Description:', data?.body?.banner_description)
+    console.log('Features:', data?.body?.features)
+    console.log('Bonuses:', data?.body?.bonuses)
+    console.log('FAQ:', data?.body?.faq)
+  } catch (error) {
+    console.error('Не удалось загрузить данные:', error)
+  }
+})
+
+const openFaqIndex = ref(0)
 
 const faqItems = ref([
   {
@@ -219,11 +239,11 @@ const faqItems = ref([
     question: 'Excepteur sint occaecat',
     answer: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
   }
-]);
+])
 
-const toggleFaq = (index: number) => {
-  openFaqIndex.value = openFaqIndex.value === index ? null : index;
-};
+const toggleFaq = (index) => {
+  openFaqIndex.value = openFaqIndex.value === index ? null : index
+}
 </script>
 
 <style scoped>
