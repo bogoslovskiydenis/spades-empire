@@ -2,7 +2,7 @@
   <div class="home-page">
     <section class="home-section">
       <!-- Hero Container -->
-      <div class="hero-container">
+      <div class="hero-container" :style="{ backgroundImage: `url(${heroBg})` }">
         <div class="hero-content">
           <h1 class="hero-title">
             SpinEmpire<br />
@@ -22,7 +22,7 @@
         </div>
         <div class="login-content">
           <h2 class="login-title">SpinEmpire Log in and registration</h2>
-          
+
           <div class="login-block">
             <h3 class="login-subtitle">SpinEmpire Registration</h3>
             <p class="login-text">Registering at SpinEmpire is quick and easy. To create an account:</p>
@@ -149,31 +149,31 @@
       <div class="faq-container">
         <h1 class="faq-title">FAQ</h1>
         <div class="faq-list">
-          <div 
-            v-for="(item, index) in faqItems" 
-            :key="index" 
-            class="faq-item"
-            :class="{ 'is-open': openFaqIndex === index }"
+          <div
+              v-for="(item, index) in faqItems"
+              :key="index"
+              class="faq-item"
+              :class="{ 'is-open': openFaqIndex === index }"
           >
-            <button 
-              class="faq-question" 
-              @click="toggleFaq(index)"
+            <button
+                class="faq-question"
+                @click="toggleFaq(index)"
             >
               <span>{{ item.question }}</span>
-              <svg 
-                class="faq-icon" 
-                width="24" 
-                height="24" 
-                viewBox="0 0 24 24" 
-                fill="none" 
-                xmlns="http://www.w3.org/2000/svg"
+              <svg
+                  class="faq-icon"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
               >
-                <path 
-                  d="M6 9L12 15L18 9" 
-                  stroke="currentColor" 
-                  stroke-width="2" 
-                  stroke-linecap="round" 
-                  stroke-linejoin="round"
+                <path
+                    d="M6 9L12 15L18 9"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
                 />
               </svg>
             </button>
@@ -189,6 +189,8 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
+import AppButton from '~/components/AppButton.vue';
+import heroBg from '~/assets/images/HeroBg.png';
 
 const openFaqIndex = ref<number | null>(0);
 
@@ -239,7 +241,6 @@ const toggleFaq = (index: number) => {
   width: 100%;
   border-radius: 16px;
   padding: var(--spacing-3xl);
-  background-image: url('~/assets/images/HeroBg.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -322,7 +323,6 @@ const toggleFaq = (index: number) => {
   font-weight: 700;
   font-size: var(--heading-h2);
   line-height: var(--heading-h2-line-height);
-  letter-spacing: 0%;
   color: #FFFFFF;
   margin-bottom: 16px;
 }
@@ -341,7 +341,6 @@ const toggleFaq = (index: number) => {
   font-weight: 700;
   font-size: var(--font-size-md);
   line-height: 24px;
-  letter-spacing: 0%;
   color: #FFFFFF;
   margin: 0 0 4px 0;
 }
@@ -351,7 +350,6 @@ const toggleFaq = (index: number) => {
   font-weight: 400;
   font-size: var(--font-size-sm);
   line-height: var(--text-sm-line-height);
-  letter-spacing: 0%;
   color: var(--white-white-alpha-64);
   margin: 0 0 4px 0;
 }
@@ -367,13 +365,31 @@ const toggleFaq = (index: number) => {
   font-weight: 400;
   font-size: var(--font-size-sm);
   line-height: var(--text-sm-line-height);
-  letter-spacing: 0%;
   color: var(--white-white-alpha-64);
 }
 
 .login-button {
+  width: 240px;
+  height: 48px;
+  padding: var(--spacing-md) var(--spacing-lg);
+  gap: 8px;
+  border-radius: var(--primary-radius);
+  background: var(--primary-bg, #FB213E);
+  border: 1px solid transparent;
+  background-image:
+      linear-gradient(var(--primary-bg, #FB213E), var(--primary-bg, #FB213E)),
+      linear-gradient(180deg, rgba(255, 120, 127, 0) 0%, #FF787F 100%);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  box-shadow: 0px 4px 16.6px 0px rgba(251, 33, 62, 0.32);
   margin-top: 0;
   align-self: flex-start;
+  transition: all 0.3s ease;
+}
+
+.login-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0px 6px 20px 0px rgba(251, 33, 62, 0.4);
 }
 
 /* Features Section */
@@ -390,7 +406,7 @@ const toggleFaq = (index: number) => {
 .features-grid {
   display: flex;
   flex-wrap: wrap;
-  gap: 24px;
+  gap: 16px;
   justify-content: center;
 }
 
@@ -434,7 +450,6 @@ const toggleFaq = (index: number) => {
   font-weight: 700;
   font-size: var(--heading-h3);
   line-height: var(--heading-h2-line-height);
-  letter-spacing: 0%;
   color: #FFFFFF;
   margin: 0 0 8px 0;
 }
@@ -444,7 +459,6 @@ const toggleFaq = (index: number) => {
   font-weight: 400;
   font-size: var(--font-size-sm);
   line-height: var(--text-sm-line-height);
-  letter-spacing: 0%;
   color: var(--white-white-alpha-64);
   margin: 0;
 }
@@ -479,13 +493,13 @@ const toggleFaq = (index: number) => {
 .bonuses-grid {
   display: flex;
   flex-wrap: wrap;
-  gap: 24px;
+  gap: 16px;
   justify-content: center;
 }
 
 .bonus-card {
-  width: 632px;
-  max-width: 100%;
+  width: 100%;
+  max-width: 632px;
   height: 300px;
   border-radius: 16px;
   padding: 32px 24px;
@@ -536,7 +550,6 @@ const toggleFaq = (index: number) => {
   font-weight: 700;
   font-size: 16px;
   line-height: 24px;
-  letter-spacing: 0%;
   color: #FFC107;
   margin: 0;
 }
@@ -546,7 +559,6 @@ const toggleFaq = (index: number) => {
   font-weight: 700;
   font-size: 24px;
   line-height: 32px;
-  letter-spacing: 0%;
   color: #FFFFFF;
   margin: 0;
 }
@@ -556,7 +568,6 @@ const toggleFaq = (index: number) => {
   font-weight: 400;
   font-size: var(--font-size-sm);
   line-height: var(--text-sm-line-height);
-  letter-spacing: 0%;
   color: var(--white-white-alpha-64);
   margin: 0;
 }
@@ -600,7 +611,6 @@ const toggleFaq = (index: number) => {
   font-weight: 700;
   font-size: 16px;
   line-height: 24px;
-  letter-spacing: 0%;
   color: #FFFFFF;
   text-align: left;
   transition: all 0.3s ease;
@@ -630,7 +640,6 @@ const toggleFaq = (index: number) => {
   font-weight: 400;
   font-size: var(--font-size-sm);
   line-height: var(--text-sm-line-height);
-  letter-spacing: 0%;
   color: var(--white-white-alpha-64);
   margin: 0;
 }
@@ -650,8 +659,8 @@ const toggleFaq = (index: number) => {
   .login-container {
     gap: 60px;
   }
-  
-  
+
+
 }
 
 @media (max-width: 968px) {
@@ -659,7 +668,7 @@ const toggleFaq = (index: number) => {
     flex-direction: column;
     gap: 40px;
   }
-  
+
   .login-image {
     width: 100%;
     max-width: 400px;
@@ -693,22 +702,22 @@ const toggleFaq = (index: number) => {
     padding-left: 20px;
     padding-right: 20px;
   }
-  
+
   .hero-container {
     height: auto;
     min-height: 400px;
     padding: 32px 24px;
   }
-  
+
   .hero-content {
     max-width: 100%;
   }
-  
+
   .hero-title {
     font-size: 32px;
     line-height: 40px;
   }
-  
+
   .hero-description {
     font-size: 14px;
     line-height: 20px;
@@ -776,4 +785,3 @@ const toggleFaq = (index: number) => {
   }
 }
 </style>
-
