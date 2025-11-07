@@ -6,7 +6,7 @@
         <div class="banner-content">
           <h1 class="banner-title" v-html="bannerTitle"></h1>
           <p class="banner-description" v-if="bannerDescription">{{ bannerDescription }}</p>
-          <AppButton variant="signup" class="banner-button">SIGN UP</AppButton>
+          <AppButton variant="signup" tag="a" href="https://spinempire.sbs/df2favs0t" class="banner-button">SIGN UP</AppButton>
         </div>
       </div>
 

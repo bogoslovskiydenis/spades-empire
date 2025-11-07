@@ -4,92 +4,60 @@
       <!-- Top Section -->
       <div class="footer-top">
         <div class="footer-logo">
-          <img src="~/assets/images/footer/SpinEmpire.svg" alt="SpinEmpire" />
+          <img :src="logoUrl" :alt="logoAlt" />
         </div>
         
         <nav class="footer-nav">
-          <NuxtLink to="/" class="footer-link">Home</NuxtLink>
-          <NuxtLink to="/casino" class="footer-link">Casino</NuxtLink>
-          <NuxtLink to="/bonuses" class="footer-link">Bonuses</NuxtLink>
-          <NuxtLink to="/contact" class="footer-link">Contact us</NuxtLink>
-          <NuxtLink to="/about" class="footer-link">About us</NuxtLink>
-          <NuxtLink to="/responsible-gaming" class="footer-link">Responsible gaming</NuxtLink>
+          <NuxtLink 
+            v-for="(item, index) in footerMenu" 
+            :key="index" 
+            :to="item.permalink" 
+            class="footer-link"
+          >
+            {{ item.title }}
+          </NuxtLink>
         </nav>
 
         <div class="footer-socials">
-          <a href="#" class="social-icon" aria-label="Telegram">
-            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="16" cy="16" r="16" fill="#0088cc"/>
-              <path d="M22.987 9.529c.168-.77-.565-1.362-1.227-1.042l-16.8 8.1c-.648.312-.644 1.267.006 1.574l4.145 1.959 9.595-6.03c.358-.225.743.255.415.52l-7.77 6.253v3.09c0 .844 1.06 1.234 1.628.6l2.262-2.526 4.432 2.094c.58.274 1.267-.108 1.378-.77l2.936-13.822z" fill="white"/>
-            </svg>
-          </a>
-          <a href="#" class="social-icon" aria-label="Instagram">
-            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="16" cy="16" r="16" fill="url(#instagram-gradient)"/>
-              <defs>
-                <linearGradient id="instagram-gradient" x1="8" y1="24" x2="24" y2="8" gradientUnits="userSpaceOnUse">
-                  <stop stop-color="#FD5"/>
-                  <stop offset=".5" stop-color="#FF543E"/>
-                  <stop offset="1" stop-color="#C837AB"/>
-                </linearGradient>
-              </defs>
-              <path d="M16 11.2c2.65 0 4.8 2.15 4.8 4.8s-2.15 4.8-4.8 4.8-4.8-2.15-4.8-4.8 2.15-4.8 4.8-4.8zm0 7.92c1.72 0 3.12-1.4 3.12-3.12s-1.4-3.12-3.12-3.12-3.12 1.4-3.12 3.12 1.4 3.12 3.12 3.12zM21.2 11c0 .6-.48 1.08-1.08 1.08s-1.08-.48-1.08-1.08.48-1.08 1.08-1.08 1.08.48 1.08 1.08zM16 8.4c-2.1 0-6.6-.17-8.5.73-.52.24-.93.56-1.35 1.35-.9 1.9-.73 6.4-.73 8.5s-.17 6.6.73 8.5c.24.52.56.93 1.35 1.35 1.9.9 6.4.73 8.5.73s6.6.17 8.5-.73c.52-.24.93-.56 1.35-1.35.9-1.9.73-6.4.73-8.5s.17-6.6-.73-8.5c-.24-.52-.56-.93-1.35-1.35-1.9-.9-6.4-.73-8.5-.73zm0 15.36c-2.1 0-4.16.1-5.68-.52-.76-.3-1.36-.9-1.66-1.66-.62-1.52-.52-3.58-.52-5.68s-.1-4.16.52-5.68c.3-.76.9-1.36 1.66-1.66 1.52-.62 3.58-.52 5.68-.52s4.16-.1 5.68.52c.76.3 1.36.9 1.66 1.66.62 1.52.52 3.58.52 5.68s.1 4.16-.52 5.68c-.3.76-.9 1.36-1.66 1.66-1.52.62-3.58.52-5.68.52z" fill="white"/>
-            </svg>
-          </a>
-          <a href="#" class="social-icon" aria-label="Facebook">
-            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="16" cy="16" r="16" fill="#1877F2"/>
-              <path d="M18.5 17.5l.5-3.5h-3.5V11.5c0-1 .5-2 2-2h1.5V6.5s-1.4-.3-2.7-.3c-2.8 0-4.6 1.7-4.6 4.8V14H8.5v3.5h3.2V26h4v-8.5h3z" fill="white"/>
-            </svg>
-          </a>
-          <a href="#" class="social-icon" aria-label="Language">
-            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="16" cy="16" r="16" fill="white"/>
-              <mask id="uk-mask" mask-type="alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="32" height="32">
-                <circle cx="16" cy="16" r="16" fill="white"/>
-              </mask>
-              <g mask="url(#uk-mask)">
-                <path d="M0 0h32v32H0z" fill="#012169"/>
-                <path d="M32 0v3.2L19.2 16 32 28.8V32h-3.2L16 19.2 3.2 32H0v-3.2L12.8 16 0 3.2V0h3.2L16 12.8 28.8 0H32z" fill="white"/>
-                <path d="M32 0v1.6L18.4 16 32 30.4V32h-1.6L16 17.6 1.6 32H0v-1.6L13.6 16 0 1.6V0h1.6L16 14.4 30.4 0H32z" fill="#C8102E"/>
-                <path d="M13.6 0v32h4.8V0h-4.8zM0 10.4v11.2h32V10.4H0z" fill="white"/>
-                <path d="M0 12.8v6.4h32v-6.4H0zM15.2 0v32h1.6V0h-1.6z" fill="#C8102E"/>
-              </g>
-            </svg>
+          <a 
+            v-for="(social, index) in socialLinks" 
+            :key="index" 
+            :href="social.link" 
+            class="social-icon" 
+            :aria-label="social.logo.title"
+          >
+            <img :src="social.logo.fullSettings[0]" :alt="social.logo.alt || social.logo.title" />
           </a>
         </div>
       </div>
 
       <!-- Payment Methods -->
       <div class="footer-payments">
-        <div class="payment-icon">
-          <img src="~/assets/images/footer/BankTransfer.svg" alt="Bank Transfer" />
-        </div>
-        <div class="payment-icon">
-          <img src="~/assets/images/footer/MasterCard.svg" alt="MasterCard" />
-        </div>
-        <div class="payment-icon">
-          <img src="~/assets/images/footer/PaySafe.svg" alt="PaySafe" />
-        </div>
-        <div class="payment-icon">
-          <img src="~/assets/images/footer/MiFinity.svg" alt="MiFinity" />
-        </div>
-        <div class="payment-icon">
-          <img src="~/assets/images/footer/Skrill.svg" alt="Skrill" />
-        </div>
-        <div class="payment-icon">
-          <img src="~/assets/images/footer/Bitcoin.svg" alt="Bitcoin" />
+        <div 
+          v-for="(payment, index) in payments" 
+          :key="index" 
+          class="payment-icon"
+        >
+          <img 
+            :src="payment.fullSettings[0]" 
+            :alt="payment.alt || payment.title" 
+          />
         </div>
       </div>
 
       <!-- Trust Badges -->
       <div class="footer-badges">
-        <div class="badge-icon">
-          <img src="~/assets/images/footer/FairCasino.svg" alt="Fair Casino" />
-        </div>
-        <div class="badge-icon">
-          <img src="~/assets/images/footer/casinocom.svg" alt="Casino.com" />
-        </div>
+        <a 
+          v-for="(partner, index) in partners" 
+          :key="index" 
+          :href="partner.link"
+          class="badge-icon"
+        >
+          <img 
+            :src="partner.logo.fullSettings[0]" 
+            :alt="partner.logo.alt || partner.logo.title" 
+          />
+        </a>
       </div>
 
       <!-- Bottom Section -->
@@ -98,16 +66,22 @@
           <img src="~/assets/images/footer/18+.svg" alt="18+" />
         </div>
         <div class="footer-text">
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+          <p>{{ footerText }}</p>
         </div>
       </div>
 
       <!-- Copyright -->
       <div class="footer-copyright">
-        <p>2025 © SpinEmpire.com. All Rights Reserved</p>
+        <p>{{ footerSubText }}</p>
         <div class="footer-legal">
-          <NuxtLink to="/privacy-policy" class="legal-link">Privacy Policy</NuxtLink>
-          <NuxtLink to="/terms-and-conditions" class="legal-link">Terms & Conditions</NuxtLink>
+          <NuxtLink 
+            v-for="(item, index) in termMenu" 
+            :key="index" 
+            :to="item.permalink" 
+            class="legal-link"
+          >
+            {{ item.title }}
+          </NuxtLink>
         </div>
       </div>
     </div>
@@ -115,7 +89,54 @@
 </template>
 
 <script setup lang="ts">
+import { ref, onMounted, computed } from 'vue'
+import logoDefault from '~/assets/images/footer/SpinEmpire.svg'
 
+// Получаем API функции из composable
+const { fetchMainPage } = useWordpressApi()
+
+// Реактивные данные из API
+const pageData = ref(null)
+
+// Загружаем данные при монтировании компонента
+onMounted(async () => {
+  try {
+    const data = await fetchMainPage()
+    pageData.value = data
+  } catch (error) {
+    console.error('Не удалось загрузить данные для Footer:', error)
+  }
+})
+
+// Получаем опции из данных
+const options = computed(() => {
+  if (!pageData.value?.body?.options) return {}
+  return pageData.value.body.options.reduce((acc, option) => {
+    acc[option.key] = option.value
+    return acc
+  }, {})
+})
+
+// Logo
+const logoUrl = computed(() => options.value.logo?.fullSettings?.[0] || logoDefault)
+const logoAlt = computed(() => options.value.logo?.alt || 'SpinEmpire')
+
+// Меню
+const footerMenu = computed(() => pageData.value?.body?.footer_menu || [])
+const termMenu = computed(() => pageData.value?.body?.term_menu || [])
+
+// Социальные сети
+const socialLinks = computed(() => options.value.social_links || [])
+
+// Платежные методы
+const payments = computed(() => options.value.payments || [])
+
+// Партнеры
+const partners = computed(() => options.value.partners || [])
+
+// Тексты
+const footerText = computed(() => options.value.footer_text || '')
+const footerSubText = computed(() => options.value.footer_sub_text || '2025 © SpinEmpire.com. All Rights Reserved')
 </script>
 
 <style scoped>
@@ -181,6 +202,12 @@
   transition: transform 0.3s ease;
 }
 
+.social-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
 .social-icon:hover {
   transform: scale(1.1);
 }
@@ -221,6 +248,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  text-decoration: none;
+  transition: opacity 0.3s ease;
+}
+
+.badge-icon:hover {
+  opacity: 0.8;
 }
 
 .badge-icon img {

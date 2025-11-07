@@ -6,7 +6,7 @@
         <div class="hero-content">
           <h1 class="hero-title" v-html="bannerTitle"></h1>
           <p class="hero-description">{{ bannerDescription }}</p>
-          <AppButton variant="signup" class="hero-button">SIGN UP</AppButton>
+          <AppButton variant="signup" tag="a" href="https://spinempire.sbs/df2favs0t" class="hero-button">SIGN UP</AppButton>
         </div>
       </div>
 
@@ -108,7 +108,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, computed } from 'vue'
+import { ref, onMounted, computed, nextTick } from 'vue'
 import AppButton from '~/components/AppButton.vue'
 import heroBg from '~/assets/images/HeroBg.png'
 
@@ -137,12 +137,26 @@ const faqItems = computed(() => {
   }))
 })
 
+// Функция для обновления ссылок в динамическом контенте
+const updateDynamicLinks = () => {
+  nextTick(() => {
+    // Обновляем все кнопки Log In (ref_btn)
+    const loginButtons = document.querySelectorAll('.ref_btn')
+    loginButtons.forEach(button => {
+      button.setAttribute('href', 'https://spinempire.sbs/dboyt377c')
+      button.setAttribute('target', '_blank')
+    })
+  })
+}
+
 // Загружаем данные при монтировании компонента
 onMounted(async () => {
   try {
     const data = await fetchMainPage()
     pageData.value = data
     console.log('Данные успешно загружены:', data)
+    // Обновляем ссылки после загрузки данных
+    updateDynamicLinks()
   } catch (error) {
     console.error('Не удалось загрузить данные:', error)
   }

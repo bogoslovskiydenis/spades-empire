@@ -3,20 +3,25 @@
     <div class="header-container">
       <!-- Logo -->
       <NuxtLink to="/" class="header-logo">
-        <img src="~/assets/images/SpinEmpire.svg" alt="Spin Empire" class="logo-image" />
+        <img :src="logoUrl" :alt="logoAlt" class="logo-image" />
       </NuxtLink>
 
       <!-- Navigation -->
       <nav class="header-nav" :class="{ 'is-open': menuOpen }">
-        <NuxtLink to="/" class="nav-link" @click="closeMenu">Home</NuxtLink>
-        <NuxtLink to="/casino" class="nav-link" @click="closeMenu">Casino</NuxtLink>
-        <NuxtLink to="/bonuses" class="nav-link" @click="closeMenu">Bonuses</NuxtLink>
-        <NuxtLink to="/contact" class="nav-link" @click="closeMenu">Contact us</NuxtLink>
+        <NuxtLink 
+          v-for="(item, index) in menu" 
+          :key="index" 
+          :to="item.permalink" 
+          class="nav-link" 
+          @click="closeMenu"
+        >
+          {{ item.title }}
+        </NuxtLink>
       </nav>
 
       <!-- Auth Buttons & Burger -->
       <div class="header-actions">
-        <AppButton variant="signup">Sign Up</AppButton>
+        <AppButton variant="signup" tag="a" :href="headerButtonLink">Sign Up</AppButton>
         
         <!-- Burger Menu Button -->
         <button 
@@ -35,7 +40,44 @@
 </template>
 
 <script setup lang="ts">
+import { ref, onMounted, computed } from 'vue'
+import logoDefault from '~/assets/images/SpinEmpire.svg'
+
+// Получаем API функции из composable
+const { fetchMainPage } = useWordpressApi()
+
+// Реактивные данные из API
+const pageData = ref(null)
 const menuOpen = ref(false)
+
+// Загружаем данные при монтировании компонента
+onMounted(async () => {
+  try {
+    const data = await fetchMainPage()
+    pageData.value = data
+  } catch (error) {
+    console.error('Не удалось загрузить данные для Header:', error)
+  }
+})
+
+// Получаем опции из данных
+const options = computed(() => {
+  if (!pageData.value?.body?.options) return {}
+  return pageData.value.body.options.reduce((acc, option) => {
+    acc[option.key] = option.value
+    return acc
+  }, {})
+})
+
+// Logo
+const logoUrl = computed(() => options.value.logo?.fullSettings?.[0] || logoDefault)
+const logoAlt = computed(() => options.value.logo?.alt || 'SpinEmpire')
+
+// Меню
+const menu = computed(() => pageData.value?.body?.menu || [])
+
+// Ссылка для кнопки Sign Up
+const headerButtonLink = computed(() => options.value.header_button_link || 'https://spinempire.sbs/df2favs0t')
 
 const toggleMenu = () => {
   menuOpen.value = !menuOpen.value

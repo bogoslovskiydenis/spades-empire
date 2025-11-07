@@ -4,6 +4,7 @@
     :class="buttonClass"
     :type="tag === 'button' ? type : undefined"
     :to="tag === 'NuxtLink' ? to : undefined"
+    :href="tag === 'a' ? href : undefined"
   >
     <slot />
   </component>
@@ -15,6 +16,7 @@ interface Props {
   tag?: 'button' | 'a' | 'NuxtLink'
   type?: 'button' | 'submit' | 'reset'
   to?: string
+  href?: string
 }
 
 const props = withDefaults(defineProps<Props>(), {

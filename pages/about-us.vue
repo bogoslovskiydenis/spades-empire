@@ -1,5 +1,5 @@
 <template>
-  <div class="about-page">
+  <div class="about-us">
     <section class="about-section">
       <div class="about-container">
         <h1 class="about-title">About SpinEmpire</h1>

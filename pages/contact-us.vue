@@ -1,5 +1,5 @@
 <template>
-  <div class="contact-page">
+  <div class="contact-us">
     <section class="contact-section">
       <div class="contact-container">
         <!-- Left Side - Image -->

@@ -45,13 +45,23 @@ export const useWordpressApi = () => {
     return await fetchPageData('pages', 'responsible-gaming')
   }
 
+  const fetchPrivacyPolicyPage = async () => {
+    return await fetchPageData('pages', 'privacy-policy')
+  }
+
+  const fetchTermsConditionsPage = async () => {
+    return await fetchPageData('pages', 'terms-conditions')
+  }
+
   return {
     fetchPageData,
     fetchMainPage,
     fetchBonusesPage,
     fetchCasinoPage,
     fetchContactPage,
-    fetchResponsibleGamingPage
+    fetchResponsibleGamingPage,
+    fetchPrivacyPolicyPage,
+    fetchTermsConditionsPage
   }
 }
 
