@@ -2,154 +2,71 @@
   <div class="home-page">
     <section class="home-section">
       <!-- Hero Container -->
-      <div class="hero-container" :style="{ backgroundImage: `url(${heroBg})` }">
+      <div class="hero-container" :style="{ backgroundImage: `url(${bannerImage})` }">
         <div class="hero-content">
-          <h1 class="hero-title">
-            SpinEmpire<br />
-            Online Casino
-          </h1>
-          <p class="hero-description">
-            SpinEmpire is a modern online platform offering a wide range of casino games. With a strong focus on user experience, SpinEmpire caters to both novice and experienced players, providing a comfortable environment with plenty of opportunities to win.
-          </p>
-          <AppButton variant="signup" class="hero-button">Play now</AppButton>
+          <h1 class="hero-title" v-html="bannerTitle"></h1>
+          <p class="hero-description">{{ bannerDescription }}</p>
+          <AppButton variant="signup" class="hero-button">SIGN UP</AppButton>
         </div>
       </div>
 
       <!-- Log in and Registration Container -->
-      <div class="login-container">
+      <div class="login-container" v-if="contentHtml">
         <div class="login-image">
           <img src="~/assets/images/Image.svg" alt="SpinEmpire" />
         </div>
-        <div class="login-content">
-          <h2 class="login-title">SpinEmpire Log in and registration</h2>
-
-          <div class="login-block">
-            <h3 class="login-subtitle">SpinEmpire Registration</h3>
-            <p class="login-text">Registering at SpinEmpire is quick and easy. To create an account:</p>
-            <ol class="login-list">
-              <li>Go to the official SpinEmpire website.</li>
-              <li>Click on the "Sign Up" button at the top right of the homepage.</li>
-              <li>Fill out the registration form with your email, password, and preferred account currency.</li>
-              <li>Confirm that you are over 18 years old and agree to the terms and conditions.</li>
-              <li>Click "Complete" to complete the process.</li>
-              <li>Verify your email by clicking the link sent to your inbox.</li>
-            </ol>
-          </div>
-
-          <div class="login-block">
-            <h3 class="login-subtitle">SpinEmpire Log In</h3>
-            <p class="login-text">SpinEmpire login is simple and convenient. To log in, just follow these steps:</p>
-            <ol class="login-list">
-              <li>Visit the official SpinEmpire website.</li>
-              <li>Click on the "Log in" button at the top right of the homepage.</li>
-              <li>Enter your registered email and password.</li>
-              <li>Click "Log in" to access your account.</li>
-            </ol>
-          </div>
-
-          <AppButton variant="signup" class="login-button">Log In</AppButton>
-        </div>
+        <div class="login-content" v-html="contentHtml"></div>
       </div>
 
       <!-- Features Container -->
-      <div class="features-container">
-        <div class="features-description">
-          <h1 class="features-title">Features</h1>
-
-          <p class="features-description-text text-sm">We built this platform on four core principles our team believes in. This is what you can expect every time you play..</p>
-
-        </div>
+      <div class="features-container" v-if="features.length > 0">
+        <h1 class="features-title">Features</h1>
+        <div class="features-description" v-if="featureContent" v-html="featureContent"></div>
 
         <div class="features-grid">
-          <div class="feature-card">
+          <div 
+            v-for="(feature, index) in features" 
+            :key="index" 
+            class="feature-card"
+          >
             <div class="feature-icon">
-              <img src="~/assets/images/cup.svg" alt="Cup" />
+              <img 
+                :src="feature.img?.fullSettings?.[0]" 
+                :alt="feature.img?.alt || feature.title" 
+              />
             </div>
-            <h3 class="feature-card-title">Lorem ipsum</h3>
-            <p class="feature-card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore</p>
-          </div>
-
-          <div class="feature-card">
-            <div class="feature-icon">
-              <img src="~/assets/images/Ticket.svg" alt="Ticket" />
-            </div>
-            <h3 class="feature-card-title">consectetur adipiscing elit sed do eiusmod</h3>
-            <p class="feature-card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore</p>
-          </div>
-
-          <div class="feature-card">
-            <div class="feature-icon">
-              <img src="~/assets/images/NChest.svg" alt="Chest" />
-            </div>
-            <h3 class="feature-card-title">Sed do eiusmod tempor</h3>
-            <p class="feature-card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore</p>
-          </div>
-
-          <div class="feature-card">
-            <div class="feature-icon">
-              <img src="~/assets/images/NShield.svg" alt="Shield" />
-            </div>
-            <h3 class="feature-card-title">Incididunt ut labore et dolore magna aliqua.</h3>
-            <p class="feature-card-text">Start your adventure with 1st Deposit Bonus!</p>
+            <h3 class="feature-card-title">{{ feature.title }}</h3>
+            <p class="feature-card-text">{{ feature.description }}</p>
           </div>
         </div>
-
-        <!-- Features Description -->
-
       </div>
 
       <!-- Bonuses Container -->
-      <div class="bonuses-container">
+      <div class="bonuses-container" v-if="bonuses.length > 0">
         <h1 class="bonuses-title">Bonuses</h1>
         <div class="bonuses-grid">
-          <div class="bonus-card">
+          <div 
+            v-for="(bonus, index) in bonuses" 
+            :key="index" 
+            class="bonus-card"
+          >
             <div class="bonus-content">
-              <p class="bonus-label">Welcome 1st Deposit Bonus</p>
-              <h3 class="bonus-title">100% up to €300<br/>+ 100 FS + 3 Coins</h3>
-              <p class="bonus-text">Start your adventure with 1st Deposit Bonus!</p>
+              <p class="bonus-label">{{ bonus.title }}</p>
+              <h3 class="bonus-title" v-html="bonus.sub_title"></h3>
+              <p class="bonus-text">{{ bonus.description }}</p>
             </div>
             <div class="bonus-image">
-              <img src="~/assets/images/bonus1.png" alt="Welcome Bonus" />
-            </div>
-          </div>
-
-          <div class="bonus-card">
-            <div class="bonus-content">
-              <p class="bonus-label">Loyalty cashback</p>
-              <h3 class="bonus-title">Up to 15%</h3>
-              <p class="bonus-text">Unlock new titles in the Loyalty Program and boost your weekly cashback!</p>
-            </div>
-            <div class="bonus-image">
-              <img src="~/assets/images/bonus2.png" alt="Loyalty cashback" />
-            </div>
-          </div>
-
-          <div class="bonus-card">
-            <div class="bonus-content">
-              <p class="bonus-label">Weekly Bonus Wednesday</p>
-              <h3 class="bonus-title">35% Bonus up to 150€</h3>
-              <p class="bonus-text">Min deposit € 20, Wagering x45</p>
-            </div>
-            <div class="bonus-image">
-              <img src="~/assets/images/bonus3.png" alt="Weekly Bonus" />
-            </div>
-          </div>
-
-          <div class="bonus-card">
-            <div class="bonus-content">
-              <p class="bonus-label">Weekend Bonus Sunday</p>
-              <h3 class="bonus-title">50% Bonus up to 50€<br/>+ 5 Coins</h3>
-              <p class="bonus-text">Min deposit € 30, Wagering x45</p>
-            </div>
-            <div class="bonus-image">
-              <img src="~/assets/images/bonus4.png" alt="Weekend Bonus" />
+              <img 
+                :src="bonus.img?.fullSettings?.[0]" 
+                :alt="bonus.img?.alt || bonus.title" 
+              />
             </div>
           </div>
         </div>
       </div>
 
       <!-- FAQ Container -->
-      <div class="faq-container">
+      <div class="faq-container" v-if="faqItems.length > 0">
         <h1 class="faq-title">FAQ</h1>
         <div class="faq-list">
           <div
@@ -181,7 +98,7 @@
               </svg>
             </button>
             <div class="faq-answer" v-show="openFaqIndex === index">
-              <p>{{ item.answer }}</p>
+              <div v-html="item.answer"></div>
             </div>
           </div>
         </div>
@@ -191,58 +108,45 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import AppButton from '~/components/AppButton.vue'
 import heroBg from '~/assets/images/HeroBg.png'
 
 // Получаем API функции из composable
 const { fetchMainPage } = useWordpressApi()
 
-// Загружаем данные при монтировании компонента для проверки через консоль
+// Реактивные данные из API
+const pageData = ref(null)
+const openFaqIndex = ref(0)
+
+// Computed для удобного доступа к данным
+const bannerTitle = computed(() => pageData.value?.body?.banner_title || 'SpinEmpire Online Casino')
+const bannerDescription = computed(() => pageData.value?.body?.banner_description || '')
+const bannerImage = computed(() => pageData.value?.body?.banner_img?.fullSettings?.[0] || heroBg)
+const bannerMobileImage = computed(() => pageData.value?.body?.banner_mobile_img?.fullSettings?.[0] || '')
+const bannerLaptopImage = computed(() => pageData.value?.body?.banner_laptop_img?.fullSettings?.[0] || '')
+const contentHtml = computed(() => pageData.value?.body?.content || '')
+const featureContent = computed(() => pageData.value?.body?.feature_content || '')
+const features = computed(() => pageData.value?.body?.features || [])
+const bonuses = computed(() => pageData.value?.body?.bonuses || [])
+const faqItems = computed(() => {
+  const faqData = pageData.value?.body?.faq || []
+  return faqData.map(item => ({
+    question: item.value_1,
+    answer: item.value_2
+  }))
+})
+
+// Загружаем данные при монтировании компонента
 onMounted(async () => {
   try {
     const data = await fetchMainPage()
-    console.log('=== Данные из WordPress API ===')
-    console.log('Полный ответ:', data)
-    console.log('=== Структура body ===')
-    console.log('Banner Title:', data?.body?.banner_title)
-    console.log('Banner Description:', data?.body?.banner_description)
-    console.log('Features:', data?.body?.features)
-    console.log('Bonuses:', data?.body?.bonuses)
-    console.log('FAQ:', data?.body?.faq)
+    pageData.value = data
+    console.log('Данные успешно загружены:', data)
   } catch (error) {
     console.error('Не удалось загрузить данные:', error)
   }
 })
-
-const openFaqIndex = ref(0)
-
-const faqItems = ref([
-  {
-    question: 'Lorem ipsum dolor sit',
-    answer: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
-  },
-  {
-    question: 'Ut enim ad minim veniam',
-    answer: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
-  },
-  {
-    question: 'Excepteur sint occaecat',
-    answer: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
-  },
-  {
-    question: 'Duis aute irure dolor',
-    answer: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
-  },
-  {
-    question: 'Ut enim ad minim veniam',
-    answer: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
-  },
-  {
-    question: 'Excepteur sint occaecat',
-    answer: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
-  }
-])
 
 const toggleFaq = (index) => {
   openFaqIndex.value = openFaqIndex.value === index ? null : index
@@ -341,6 +245,78 @@ const toggleFaq = (index) => {
   flex-direction: column;
 }
 
+/* Стили для HTML контента из API */
+.login-content :deep(h2) {
+  font-family: 'Mulish', sans-serif;
+  font-weight: 700;
+  font-size: var(--heading-h2);
+  line-height: var(--heading-h2-line-height);
+  color: #FFFFFF;
+  margin-bottom: 16px;
+}
+
+.login-content :deep(h3) {
+  font-family: 'Mulish', sans-serif;
+  font-weight: 700;
+  font-size: var(--font-size-md);
+  line-height: 24px;
+  color: #FFFFFF;
+  margin: 0 0 4px 0;
+}
+
+.login-content :deep(p) {
+  font-family: 'Mulish', sans-serif;
+  font-weight: 400;
+  font-size: var(--font-size-sm);
+  line-height: var(--text-sm-line-height);
+  color: var(--white-white-alpha-64);
+  margin: 0 0 4px 0;
+}
+
+.login-content :deep(ol) {
+  list-style-position: outside;
+  padding-left: 20px;
+  margin: 0 0 32px 0;
+}
+
+.login-content :deep(ol li) {
+  font-family: 'Mulish', sans-serif;
+  font-weight: 400;
+  font-size: var(--font-size-sm);
+  line-height: var(--text-sm-line-height);
+  color: var(--white-white-alpha-64);
+}
+
+.login-content :deep(.ref_btn) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 240px;
+  height: 48px;
+  padding: 0;
+  border-radius: var(--primary-radius);
+  background: var(--primary-bg, #FB213E);
+  border: 1px solid transparent;
+  background-image:
+      linear-gradient(var(--primary-bg, #FB213E), var(--primary-bg, #FB213E)),
+      linear-gradient(180deg, rgba(255, 120, 127, 0) 0%, #FF787F 100%);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  box-shadow: 0px 4px 16.6px 0px rgba(251, 33, 62, 0.32);
+  text-align: center;
+  text-decoration: none;
+  font-family: 'Mulish', sans-serif;
+  font-weight: 700;
+  font-size: var(--font-size-md);
+  color: #FFFFFF;
+  transition: all 0.3s ease;
+}
+
+.login-content :deep(.ref_btn:hover) {
+  transform: translateY(-2px);
+  box-shadow: 0px 6px 20px 0px rgba(251, 33, 62, 0.4);
+}
+
 .login-title {
   font-family: 'Mulish', sans-serif;
   font-weight: 700;
@@ -436,7 +412,6 @@ const toggleFaq = (index) => {
 .feature-card {
   width: 100%;
   max-width: 308px;
-  height: 324px;
   background: #171821;
   border-radius: 16px;
   padding: 24px 24px 32px 24px;
@@ -487,8 +462,28 @@ const toggleFaq = (index) => {
 }
 
 .features-description {
-  margin-top: 24px;
+  margin-bottom: 48px;
   text-align: center;
+}
+
+.features-description :deep(h2) {
+  font-family: 'Mulish', sans-serif;
+  font-weight: 700;
+  font-size: var(--heading-h2);
+  line-height: var(--heading-h2-line-height);
+  color: #FFFFFF;
+  margin-bottom: 8px;
+}
+
+.features-description :deep(span),
+.features-description :deep(p) {
+  font-family: 'Mulish', sans-serif;
+  font-weight: 400;
+  font-size: var(--font-size-sm);
+  line-height: var(--text-sm-line-height);
+  color: var(--white-white-alpha-64);
+  margin: 0 auto;
+  max-width: 100%;
 }
 
 .features-description-title {
@@ -657,6 +652,22 @@ const toggleFaq = (index) => {
 .faq-answer {
   padding: 0 32px 24px 32px;
   animation: fadeIn 0.3s ease;
+}
+
+.faq-answer :deep(p),
+.faq-answer :deep(div) {
+  font-family: 'Mulish', sans-serif;
+  font-weight: 400;
+  font-size: var(--font-size-sm);
+  line-height: var(--text-sm-line-height);
+  color: var(--white-white-alpha-64);
+  margin: 0;
+}
+
+.faq-answer :deep(b),
+.faq-answer :deep(strong) {
+  font-weight: 700;
+  color: #FFFFFF;
 }
 
 .faq-answer p {
