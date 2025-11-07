@@ -2,66 +2,36 @@
   <div class="responsible-gaming-page">
     <section class="responsible-gaming-section">
       <div class="responsible-gaming-container">
-        <h1 class="responsible-gaming-title">Responsible gaming</h1>
-
-        <!-- First Section -->
-        <div class="responsible-gaming-content-block">
-          <h2 class="responsible-gaming-subtitle">Lorem ipsum dolor sit amet</h2>
-          <p class="responsible-gaming-text">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure 
-            dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non 
-            proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
-            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco 
-            laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore 
-            eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est 
-            laborum.
-          </p>
-        </div>
-
-        <!-- Second Section -->
-        <div class="responsible-gaming-content-block">
-          <h2 class="responsible-gaming-subtitle">Duis aute irure</h2>
-          <p class="responsible-gaming-text">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure 
-            dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non 
-            proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-          </p>
-        </div>
-
-        <!-- Third Section -->
-        <div class="responsible-gaming-content-block">
-          <h2 class="responsible-gaming-subtitle">Lorem ipsum dolor sit amet</h2>
-          <p class="responsible-gaming-text">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure 
-            dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non 
-            proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
-            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco 
-            laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore 
-            eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est 
-            laborum.
-          </p>
-        </div>
-
-        <!-- Fourth Section -->
-        <div class="responsible-gaming-content-block">
-          <h2 class="responsible-gaming-subtitle">Est laborum</h2>
-          <p class="responsible-gaming-text">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure 
-            dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non 
-            proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-          </p>
-        </div>
+        <h1 class="responsible-gaming-title">{{ pageH1 }}</h1>
+        <div class="responsible-gaming-html" v-html="pageContent"></div>
       </div>
     </section>
   </div>
 </template>
 
 <script setup lang="ts">
+import { ref, onMounted, computed } from 'vue'
 
+// Получаем API функции из composable
+const { fetchResponsibleGamingPage } = useWordpressApi()
+
+// Реактивные данные из API
+const pageData = ref(null)
+
+// Computed для удобного доступа к данным
+const pageH1 = computed(() => pageData.value?.body?.h1 || 'Responsible gaming')
+const pageContent = computed(() => pageData.value?.body?.content || '')
+
+// Загружаем данные при монтировании компонента
+onMounted(async () => {
+  try {
+    const data = await fetchResponsibleGamingPage()
+    pageData.value = data
+    console.log('Данные страницы Responsible Gaming загружены:', data)
+  } catch (error) {
+    console.error('Не удалось загрузить данные страницы Responsible Gaming:', error)
+  }
+})
 </script>
 
 <style scoped>
@@ -95,7 +65,68 @@
   line-height: 48px;
   letter-spacing: 0%;
   color: #FFFFFF;
-  margin: 0;
+  margin: 0 0 24px 0;
+}
+
+/* Стили для HTML контента из API */
+.responsible-gaming-html :deep(p) {
+  font-family: 'Mulish', sans-serif;
+  font-weight: 400;
+  font-size: var(--font-size-sm);
+  line-height: var(--text-sm-line-height);
+  color: var(--white-white-alpha-64);
+  margin: 0 0 16px 0;
+}
+
+.responsible-gaming-html :deep(h2) {
+  font-family: 'Mulish', sans-serif;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 32px;
+  color: #FFFFFF;
+  margin: 24px 0 8px 0;
+}
+
+.responsible-gaming-html :deep(h3) {
+  font-family: 'Mulish', sans-serif;
+  font-weight: 700;
+  font-size: var(--heading-h3);
+  line-height: var(--heading-h2-line-height);
+  color: #FFFFFF;
+  margin: 20px 0 8px 0;
+}
+
+.responsible-gaming-html :deep(ol),
+.responsible-gaming-html :deep(ul) {
+  list-style-position: outside;
+  padding-left: 20px;
+  margin: 0 0 16px 0;
+}
+
+.responsible-gaming-html :deep(ol li),
+.responsible-gaming-html :deep(ul li) {
+  font-family: 'Mulish', sans-serif;
+  font-weight: 400;
+  font-size: var(--font-size-sm);
+  line-height: var(--text-sm-line-height);
+  color: var(--white-white-alpha-64);
+  margin-bottom: 4px;
+}
+
+.responsible-gaming-html :deep(b),
+.responsible-gaming-html :deep(strong) {
+  font-weight: 700;
+  color: #FFFFFF;
+}
+
+.responsible-gaming-html :deep(a) {
+  color: #FFCF68;
+  text-decoration: underline;
+  transition: opacity 0.3s ease;
+}
+
+.responsible-gaming-html :deep(a:hover) {
+  opacity: 0.8;
 }
 
 .responsible-gaming-content-block {

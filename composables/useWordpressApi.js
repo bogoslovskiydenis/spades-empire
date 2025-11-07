@@ -29,9 +29,29 @@ export const useWordpressApi = () => {
     return await fetchPageData('pages', 'main')
   }
 
+  const fetchBonusesPage = async () => {
+    return await fetchPageData('pages', 'bonuses')
+  }
+
+  const fetchCasinoPage = async () => {
+    return await fetchPageData('pages', 'casino')
+  }
+
+  const fetchContactPage = async () => {
+    return await fetchPageData('pages', 'contact-us')
+  }
+
+  const fetchResponsibleGamingPage = async () => {
+    return await fetchPageData('pages', 'responsible-gaming')
+  }
+
   return {
     fetchPageData,
-    fetchMainPage
+    fetchMainPage,
+    fetchBonusesPage,
+    fetchCasinoPage,
+    fetchContactPage,
+    fetchResponsibleGamingPage
   }
 }
 

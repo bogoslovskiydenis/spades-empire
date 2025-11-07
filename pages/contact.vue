@@ -4,20 +4,13 @@
       <div class="contact-container">
         <!-- Left Side - Image -->
         <div class="contact-image">
-          <img src="~/assets/images/contact.png" alt="Contact Us" />
+          <img :src="pageImage" :alt="pageH1 || 'Contact Us'" />
         </div>
 
         <!-- Right Side - Content -->
         <div class="contact-content">
-          <h1 class="contact-title">Contact Us</h1>
-          <p class="contact-description">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor.
-          </p>
-
-          <h2 class="contact-subtitle">General Queries at SpinEmpire</h2>
-          <p class="contact-text">For general questions or help with our <span class="contact-website">website</span>, you can email us at:</p>
-          <a href="mailto:team@spadespartners.com" class="contact-email">team@spadespartners.com</a>
+          <h1 class="contact-title">{{ pageH1 }}</h1>
+          <div class="contact-html" v-html="pageContent"></div>
         </div>
       </div>
     </section>
@@ -25,7 +18,30 @@
 </template>
 
 <script setup lang="ts">
+import { ref, onMounted, computed } from 'vue'
+import ContactImage from '~/assets/images/contact.png'
 
+// Получаем API функции из composable
+const { fetchContactPage } = useWordpressApi()
+
+// Реактивные данные из API
+const pageData = ref(null)
+
+// Computed для удобного доступа к данным
+const pageH1 = computed(() => pageData.value?.body?.h1 || 'Contact Us')
+const pageContent = computed(() => pageData.value?.body?.content || '')
+const pageImage = computed(() => pageData.value?.body?.thumbnail || ContactImage)
+
+// Загружаем данные при монтировании компонента
+onMounted(async () => {
+  try {
+    const data = await fetchContactPage()
+    pageData.value = data
+    console.log('Данные страницы Contact загружены:', data)
+  } catch (error) {
+    console.error('Не удалось загрузить данные страницы Contact:', error)
+  }
+})
 </script>
 
 <style scoped>
@@ -74,7 +90,6 @@
   flex: 1;
   width: 616px;
   max-width: 100%;
-  height: 248px;
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -88,6 +103,54 @@
   letter-spacing: 0%;
   color: #FFFFFF;
   margin: 0 0 16px 0;
+}
+
+/* Стили для HTML контента из API */
+.contact-html :deep(p) {
+  font-family: 'Mulish', sans-serif;
+  font-weight: 400;
+  font-size: var(--font-size-sm);
+  line-height: var(--text-sm-line-height);
+  color: var(--white-white-alpha-64);
+  margin: 0 0 16px 0;
+}
+
+.contact-html :deep(h2) {
+  font-family: 'Mulish', sans-serif;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 32px;
+  color: #FFFFFF;
+  margin: 24px 0 8px 0;
+}
+
+.contact-html :deep(h3) {
+  font-family: 'Mulish', sans-serif;
+  font-weight: 700;
+  font-size: var(--heading-h3);
+  line-height: var(--heading-h2-line-height);
+  color: #FFFFFF;
+  margin: 20px 0 8px 0;
+}
+
+.contact-html :deep(a) {
+  font-family: 'Mulish', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+  color: #FFCF68;
+  text-decoration: underline;
+  transition: opacity 0.3s ease;
+}
+
+.contact-html :deep(a:hover) {
+  opacity: 0.8;
+}
+
+.contact-html :deep(b),
+.contact-html :deep(strong) {
+  font-weight: 700;
+  color: #FFFFFF;
 }
 
 .contact-description {

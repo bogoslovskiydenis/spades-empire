@@ -2,75 +2,18 @@
   <div class="casino-page">
     <section class="casino-page-section">
       <!-- Banner Container -->
-      <div class="banner-container">
+      <div class="banner-container" :style="{ backgroundImage: `url(${bannerImage})` }">
         <div class="banner-content">
-          <h1 class="banner-title">Casino</h1>
-          <p class="banner-description">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-          </p>
-          <AppButton variant="signup" class="banner-button">Sign Up</AppButton>
+          <h1 class="banner-title" v-html="bannerTitle"></h1>
+          <p class="banner-description" v-if="bannerDescription">{{ bannerDescription }}</p>
+          <AppButton variant="signup" class="banner-button">SIGN UP</AppButton>
         </div>
       </div>
 
       <!-- Content Container -->
-      <div class="content-container">
-        <!-- Section 1 -->
+      <div class="content-container" v-if="pageContent">
         <div class="content-section">
-          <h2 class="content-title">Lorem ipsum dolor sit amet</h2>
-          
-          <div class="content-block">
-            <h3 class="content-subtitle">Lorem ipsum dolor sit amet</h3>
-            <p class="content-text">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-              Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure 
-              dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non 
-              proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
-              sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco 
-              laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore 
-              eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est 
-              laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna 
-              aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute 
-              irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat 
-              non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-            </p>
-          </div>
-
-          <div class="content-block">
-            <h3 class="content-subtitle">Duis aute irure</h3>
-            <p class="content-text">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-              Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure 
-              dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non 
-              proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-            </p>
-          </div>
-
-          <div class="content-block">
-            <h3 class="content-subtitle">Lorem ipsum dolor sit amet</h3>
-            <p class="content-text">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-              Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure 
-              dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non 
-              proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
-              sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco 
-              laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore 
-              eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est 
-              laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna 
-              aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute 
-              irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat 
-              non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-            </p>
-          </div>
-
-          <div class="content-block">
-            <h3 class="content-subtitle">Est laborum</h3>
-            <p class="content-text">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-              Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure 
-              dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non 
-              proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-            </p>
-          </div>
+          <div class="content-html" v-html="pageContent"></div>
         </div>
       </div>
     </section>
@@ -78,7 +21,31 @@
 </template>
 
 <script setup lang="ts">
+import { ref, onMounted, computed } from 'vue'
+import CasinoPageBanner from '~/assets/images/CasinoPageBanner.png'
 
+// Получаем API функции из composable
+const { fetchCasinoPage } = useWordpressApi()
+
+// Реактивные данные из API
+const pageData = ref(null)
+
+// Computed для удобного доступа к данным
+const bannerTitle = computed(() => pageData.value?.body?.banner_title || 'Casino')
+const bannerDescription = computed(() => pageData.value?.body?.banner_description || '')
+const bannerImage = computed(() => pageData.value?.body?.banner_img?.fullSettings?.[0] || CasinoPageBanner)
+const pageContent = computed(() => pageData.value?.body?.content || '')
+
+// Загружаем данные при монтировании компонента
+onMounted(async () => {
+  try {
+    const data = await fetchCasinoPage()
+    pageData.value = data
+    console.log('Данные страницы Casino загружены:', data)
+  } catch (error) {
+    console.error('Не удалось загрузить данные страницы Casino:', error)
+  }
+})
 </script>
 
 <style scoped>
@@ -113,6 +80,7 @@
   height: 400px;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   border-radius: 16px;
 }
 
@@ -127,7 +95,8 @@
   font-size: 16px;
   line-height: 24px;
   color: rgba(255, 255, 255, 0.9);
-  margin-bottom: 156px;
+  margin-bottom: 24px;
+  flex-grow: 1;
 }
 
 .banner-button {
@@ -144,6 +113,57 @@
 .content-section {
   max-width: 1280px;
   margin: 0 auto;
+}
+
+/* Стили для HTML контента из API */
+.content-html :deep(h2) {
+  font-family: 'Mulish', sans-serif;
+  font-weight: 700;
+  font-size: var(--heading-h2);
+  line-height: var(--heading-h2-line-height);
+  color: #FFFFFF;
+  margin: 0 0 16px 0;
+}
+
+.content-html :deep(h3) {
+  font-family: 'Mulish', sans-serif;
+  font-weight: 700;
+  font-size: var(--heading-h3);
+  line-height: var(--heading-h2-line-height);
+  color: #FFFFFF;
+  margin: 24px 0 8px 0;
+}
+
+.content-html :deep(p) {
+  font-family: 'Mulish', sans-serif;
+  font-weight: 400;
+  font-size: var(--font-size-sm);
+  line-height: var(--text-sm-line-height);
+  color: var(--white-white-alpha-64);
+  margin: 0 0 16px 0;
+}
+
+.content-html :deep(ol),
+.content-html :deep(ul) {
+  list-style-position: outside;
+  padding-left: 20px;
+  margin: 0 0 16px 0;
+}
+
+.content-html :deep(ol li),
+.content-html :deep(ul li) {
+  font-family: 'Mulish', sans-serif;
+  font-weight: 400;
+  font-size: var(--font-size-sm);
+  line-height: var(--text-sm-line-height);
+  color: var(--white-white-alpha-64);
+  margin-bottom: 4px;
+}
+
+.content-html :deep(b),
+.content-html :deep(strong) {
+  font-weight: 700;
+  color: #FFFFFF;
 }
 
 .content-title {
