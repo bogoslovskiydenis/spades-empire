@@ -53,7 +53,13 @@
 
       <!-- Features Container -->
       <div class="features-container">
-        <h1 class="features-title">Features</h1>
+        <div class="features-description">
+          <h1 class="features-title">Features</h1>
+
+          <p class="features-description-text text-sm">We built this platform on four core principles our team believes in. This is what you can expect every time you play..</p>
+
+        </div>
+
         <div class="features-grid">
           <div class="feature-card">
             <div class="feature-icon">
@@ -89,10 +95,7 @@
         </div>
 
         <!-- Features Description -->
-        <div class="features-description">
-          <h3 class="features-description-title">Duis aute irure</h3>
-          <p class="features-description-text text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-        </div>
+
       </div>
 
       <!-- Bonuses Container -->
@@ -420,7 +423,7 @@ const toggleFaq = (index) => {
 
 .features-title {
   text-align: center;
-  margin-bottom: 48px;
+  margin-bottom: 16px;
 }
 
 .features-grid {
@@ -497,6 +500,7 @@ const toggleFaq = (index) => {
   color: var(--white-white-alpha-64);
   margin: 0 auto;
   max-width: 100%;
+  margin-bottom: 48px;
 }
 
 /* Bonuses Section */

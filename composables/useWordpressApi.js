@@ -1,13 +1,13 @@
 export const useWordpressApi = () => {
-  const apiUrl = 'https://admin.spinnempire.com/wp-content/themes/api/app/pages/'
+  const apiUrl = 'https://seo.dev-site.site/wp-content/themes/api/app/'
 
   const fetchPageData = async (type, url) => {
     try {
       const response = await $fetch(apiUrl, {
         method: 'POST',
         body: {
-          type: type,
-          url: url
+          type,
+          url
         },
         headers: {
           'Content-Type': 'application/json'
