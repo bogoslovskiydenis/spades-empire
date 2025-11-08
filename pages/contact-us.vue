@@ -56,7 +56,7 @@ useHead({
 </script>
 
 <style scoped>
-.contact-page {
+.contact-us {
   background: var(--bg-color);
   height: 100%;
   display: flex;
@@ -104,9 +104,6 @@ useHead({
   display: flex;
   flex-direction: column;
   gap: 16px;
-  padding-top: 48px;
-  padding-left: 80px;
-  padding-right: 80px;
 }
 
 .contact-title {
@@ -114,7 +111,6 @@ useHead({
   font-weight: 800;
   font-size: 40px;
   line-height: 48px;
-  letter-spacing: 0%;
   color: #FFFFFF;
   margin: 0 0 16px 0;
 }
@@ -172,7 +168,6 @@ useHead({
   font-weight: 400;
   font-size: 14px;
   line-height: 20px;
-  letter-spacing: 0%;
   color: rgba(255, 255, 255, 0.64);
   margin: 0 0 32px 0;
 }
@@ -182,7 +177,6 @@ useHead({
   font-weight: 700;
   font-size: 24px;
   line-height: 32px;
-  letter-spacing: 0%;
   color: #FFFFFF;
   margin: 0 0 8px 0;
 }
@@ -192,7 +186,6 @@ useHead({
   font-weight: 400;
   font-size: 14px;
   line-height: 20px;
-  letter-spacing: 0%;
   color: rgba(255, 255, 255, 0.64);
   margin: 0 0 16px 0;
 }
@@ -211,7 +204,6 @@ useHead({
   font-weight: 700;
   font-size: 16px;
   line-height: 24px;
-  letter-spacing: 0%;
   color: #FFCF68;
   text-decoration: underline;
   text-decoration-style: solid;
@@ -225,7 +217,7 @@ useHead({
 
 /* Responsive */
 @media (max-width: 768px) {
-  .contact-page {
+  .contact-us {
     padding-top: 48px;
     padding-left: 16px;
     padding-right: 16px;
@@ -266,7 +258,7 @@ useHead({
 }
 
 @media (max-width: 360px) {
-  .contact-page {
+  .contact-us {
     padding-top: 48px;
     padding-left: 16px;
     padding-right: 16px;
