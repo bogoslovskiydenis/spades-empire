@@ -112,11 +112,8 @@ import { ref, computed, nextTick, onMounted } from 'vue'
 import AppButton from '~/components/AppButton.vue'
 import heroBg from '~/assets/images/HeroBg.png'
 
-// Получаем API функции из composable
-const { fetchMainPage } = useWordpressApi()
-
-// Загружаем данные с SSR через useAsyncData
-const { data: pageData } = await useAsyncData('mainPage', () => fetchMainPage())
+// Получаем данные через общий composable (переиспользует кэш между компонентами)
+const { data: pageData } = await useMainPageData()
 
 const openFaqIndex = ref(0)
 

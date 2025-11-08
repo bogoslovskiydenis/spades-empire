@@ -43,10 +43,8 @@
 import { ref, computed } from 'vue'
 import logoDefault from '~/assets/images/SpinEmpire.svg'
 
-const { fetchMainPage } = useWordpressApi()
-
-// Загружаем данные с SSR через useAsyncData
-const { data: pageData } = await useAsyncData('headerData', () => fetchMainPage())
+// Получаем данные через общий composable (переиспользует кэш между компонентами)
+const { data: pageData } = await useMainPageData()
 
 const menuOpen = ref(false)
 

@@ -92,10 +92,8 @@
 import { computed } from 'vue'
 import logoDefault from '~/assets/images/footer/SpinEmpire.svg'
 
-const { fetchMainPage } = useWordpressApi()
-
-// Загружаем данные с SSR через useAsyncData
-const { data: pageData } = await useAsyncData('footerData', () => fetchMainPage())
+// Получаем данные через общий composable (переиспользует кэш между компонентами)
+const { data: pageData } = await useMainPageData()
 
 // Получаем опции из данных
 const options = computed(() => {
