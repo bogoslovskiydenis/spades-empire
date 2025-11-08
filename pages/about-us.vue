@@ -33,25 +33,39 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, computed } from 'vue'
+import { computed } from 'vue'
 
 const { fetchAboutUsPage } = useWordpressApi()
 
-const pageData = ref(null)
+// Загружаем данные с SSR через useAsyncData
+const { data: pageData } = await useAsyncData('aboutUsPage', () => fetchAboutUsPage())
 
 const pageH1 = computed(() => pageData.value?.body?.h1 || 'About Us')
 const shoreDescription = computed(() => pageData.value?.body?.shore_description || '')
 const pageContent = computed(() => pageData.value?.body?.content || '')
 const pros = computed(() => pageData.value?.body?.pros || [])
 
-onMounted(async () => {
-  try {
-    const data = await fetchAboutUsPage()
-    pageData.value = data
-    console.log('Данные страницы About Us загружены:', data)
-  } catch (error) {
-    console.error('Не удалось загрузить данные страницы About Us:', error)
-  }
+// SEO метатеги
+useHead({
+  title: pageData.value?.body?.meta_title || pageData.value?.body?.title || 'About Us - SpinEmpire',
+  meta: [
+    {
+      name: 'description',
+      content: pageData.value?.body?.description || 'Learn more about SpinEmpire online casino'
+    },
+    {
+      property: 'og:title',
+      content: pageData.value?.body?.meta_title || pageData.value?.body?.title || 'About Us - SpinEmpire'
+    },
+    {
+      property: 'og:description',
+      content: pageData.value?.body?.description || 'Learn more about SpinEmpire online casino'
+    },
+    {
+      property: 'og:type',
+      content: 'website'
+    }
+  ]
 })
 </script>
 

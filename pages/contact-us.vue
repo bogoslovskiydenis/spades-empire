@@ -18,29 +18,40 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, computed } from 'vue'
+import { computed } from 'vue'
 import ContactImage from '~/assets/images/contact.png'
 
-// Получаем API функции из composable
 const { fetchContactPage } = useWordpressApi()
 
-// Реактивные данные из API
-const pageData = ref(null)
+// Загружаем данные с SSR через useAsyncData
+const { data: pageData } = await useAsyncData('contactPage', () => fetchContactPage())
 
 // Computed для удобного доступа к данным
 const pageH1 = computed(() => pageData.value?.body?.h1 || 'Contact Us')
 const pageContent = computed(() => pageData.value?.body?.content || '')
 const pageImage = computed(() => pageData.value?.body?.thumbnail || ContactImage)
 
-// Загружаем данные при монтировании компонента
-onMounted(async () => {
-  try {
-    const data = await fetchContactPage()
-    pageData.value = data
-    console.log('Данные страницы Contact загружены:', data)
-  } catch (error) {
-    console.error('Не удалось загрузить данные страницы Contact:', error)
-  }
+// SEO метатеги
+useHead({
+  title: pageData.value?.body?.meta_title || pageData.value?.body?.title || 'Contact Us - SpinEmpire',
+  meta: [
+    {
+      name: 'description',
+      content: pageData.value?.body?.description || 'Contact SpinEmpire casino support team'
+    },
+    {
+      property: 'og:title',
+      content: pageData.value?.body?.meta_title || pageData.value?.body?.title || 'Contact Us - SpinEmpire'
+    },
+    {
+      property: 'og:description',
+      content: pageData.value?.body?.description || 'Contact SpinEmpire casino support team'
+    },
+    {
+      property: 'og:type',
+      content: 'website'
+    }
+  ]
 })
 </script>
 
@@ -93,6 +104,9 @@ onMounted(async () => {
   display: flex;
   flex-direction: column;
   gap: 16px;
+  padding-top: 48px;
+  padding-left: 80px;
+  padding-right: 80px;
 }
 
 .contact-title {

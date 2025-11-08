@@ -22,14 +22,13 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, computed } from 'vue'
+import { computed } from 'vue'
 import BonusPageBanner from '~/assets/images/BonusPageBaner.png'
 
-// Получаем API функции из composable
 const { fetchBonusesPage } = useWordpressApi()
 
-// Реактивные данные из API
-const pageData = ref(null)
+// Загружаем данные с SSR через useAsyncData
+const { data: pageData } = await useAsyncData('bonusesPage', () => fetchBonusesPage())
 
 // Computed для удобного доступа к данным
 const bannerTitle = computed(() => pageData.value?.body?.banner_title || 'Bonuses')
@@ -38,15 +37,27 @@ const bannerImage = computed(() => pageData.value?.body?.banner_img?.fullSetting
 const pageH1 = computed(() => pageData.value?.body?.h1 || '')
 const pageContent = computed(() => pageData.value?.body?.content || '')
 
-// Загружаем данные при монтировании компонента
-onMounted(async () => {
-  try {
-    const data = await fetchBonusesPage()
-    pageData.value = data
-    console.log('Данные страницы Bonuses загружены:', data)
-  } catch (error) {
-    console.error('Не удалось загрузить данные страницы Bonuses:', error)
-  }
+// SEO метатеги
+useHead({
+  title: pageData.value?.body?.meta_title || pageData.value?.body?.title || 'Bonuses - SpinEmpire',
+  meta: [
+    {
+      name: 'description',
+      content: pageData.value?.body?.description || 'Best casino bonuses and promotions at SpinEmpire'
+    },
+    {
+      property: 'og:title',
+      content: pageData.value?.body?.meta_title || pageData.value?.body?.title || 'Bonuses - SpinEmpire'
+    },
+    {
+      property: 'og:description',
+      content: pageData.value?.body?.description || 'Best casino bonuses and promotions at SpinEmpire'
+    },
+    {
+      property: 'og:type',
+      content: 'website'
+    }
+  ]
 })
 </script>
 

@@ -10,27 +10,38 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, computed } from 'vue'
+import { computed } from 'vue'
 
-// Получаем API функции из composable
 const { fetchTermsConditionsPage } = useWordpressApi()
 
-// Реактивные данные из API
-const pageData = ref(null)
+// Загружаем данные с SSR через useAsyncData
+const { data: pageData } = await useAsyncData('termsConditionsPage', () => fetchTermsConditionsPage())
 
 // Computed для удобного доступа к данным
 const pageH1 = computed(() => pageData.value?.body?.h1 || 'Terms & Conditions')
 const pageContent = computed(() => pageData.value?.body?.content || '')
 
-// Загружаем данные при монтировании компонента
-onMounted(async () => {
-  try {
-    const data = await fetchTermsConditionsPage()
-    pageData.value = data
-    console.log('Данные страницы Terms & Conditions загружены:', data)
-  } catch (error) {
-    console.error('Не удалось загрузить данные страницы Terms & Conditions:', error)
-  }
+// SEO метатеги
+useHead({
+  title: pageData.value?.body?.meta_title || pageData.value?.body?.title || 'Terms & Conditions - SpinEmpire',
+  meta: [
+    {
+      name: 'description',
+      content: pageData.value?.body?.description || 'SpinEmpire casino terms and conditions'
+    },
+    {
+      property: 'og:title',
+      content: pageData.value?.body?.meta_title || pageData.value?.body?.title || 'Terms & Conditions - SpinEmpire'
+    },
+    {
+      property: 'og:description',
+      content: pageData.value?.body?.description || 'SpinEmpire casino terms and conditions'
+    },
+    {
+      property: 'og:type',
+      content: 'website'
+    }
+  ]
 })
 </script>
 

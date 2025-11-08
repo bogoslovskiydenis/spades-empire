@@ -10,27 +10,38 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, computed } from 'vue'
+import { computed } from 'vue'
 
-// Получаем API функции из composable
 const { fetchPrivacyPolicyPage } = useWordpressApi()
 
-// Реактивные данные из API
-const pageData = ref(null)
+// Загружаем данные с SSR через useAsyncData
+const { data: pageData } = await useAsyncData('privacyPolicyPage', () => fetchPrivacyPolicyPage())
 
 // Computed для удобного доступа к данным
 const pageH1 = computed(() => pageData.value?.body?.h1 || 'Privacy Policy')
 const pageContent = computed(() => pageData.value?.body?.content || '')
 
-// Загружаем данные при монтировании компонента
-onMounted(async () => {
-  try {
-    const data = await fetchPrivacyPolicyPage()
-    pageData.value = data
-    console.log('Данные страницы Privacy Policy загружены:', data)
-  } catch (error) {
-    console.error('Не удалось загрузить данные страницы Privacy Policy:', error)
-  }
+// SEO метатеги
+useHead({
+  title: pageData.value?.body?.meta_title || pageData.value?.body?.title || 'Privacy Policy - SpinEmpire',
+  meta: [
+    {
+      name: 'description',
+      content: pageData.value?.body?.description || 'SpinEmpire casino privacy policy'
+    },
+    {
+      property: 'og:title',
+      content: pageData.value?.body?.meta_title || pageData.value?.body?.title || 'Privacy Policy - SpinEmpire'
+    },
+    {
+      property: 'og:description',
+      content: pageData.value?.body?.description || 'SpinEmpire casino privacy policy'
+    },
+    {
+      property: 'og:type',
+      content: 'website'
+    }
+  ]
 })
 </script>
 

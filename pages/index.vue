@@ -108,15 +108,16 @@
 </template>
 
 <script setup>
-import { ref, onMounted, computed, nextTick } from 'vue'
+import { ref, computed, nextTick, onMounted } from 'vue'
 import AppButton from '~/components/AppButton.vue'
 import heroBg from '~/assets/images/HeroBg.png'
 
 // Получаем API функции из composable
 const { fetchMainPage } = useWordpressApi()
 
-// Реактивные данные из API
-const pageData = ref(null)
+// Загружаем данные с SSR через useAsyncData
+const { data: pageData } = await useAsyncData('mainPage', () => fetchMainPage())
+
 const openFaqIndex = ref(0)
 
 // Computed для удобного доступа к данным
@@ -137,29 +138,46 @@ const faqItems = computed(() => {
   }))
 })
 
+// SEO метатеги
+useHead({
+  title: pageData.value?.body?.meta_title || pageData.value?.body?.title || 'SpinEmpire Online Casino',
+  meta: [
+    {
+      name: 'description',
+      content: pageData.value?.body?.description || 'Best online casino with great bonuses and fast payouts'
+    },
+    {
+      property: 'og:title',
+      content: pageData.value?.body?.meta_title || pageData.value?.body?.title || 'SpinEmpire Online Casino'
+    },
+    {
+      property: 'og:description',
+      content: pageData.value?.body?.description || 'Best online casino with great bonuses and fast payouts'
+    },
+    {
+      property: 'og:type',
+      content: 'website'
+    }
+  ]
+})
+
 // Функция для обновления ссылок в динамическом контенте
 const updateDynamicLinks = () => {
-  nextTick(() => {
-    // Обновляем все кнопки Log In (ref_btn)
-    const loginButtons = document.querySelectorAll('.ref_btn')
-    loginButtons.forEach(button => {
-      button.setAttribute('href', 'https://spinempire.sbs/dboyt377c')
-      button.setAttribute('target', '_blank')
+  if (process.client) {
+    nextTick(() => {
+      // Обновляем все кнопки Log In (ref_btn)
+      const loginButtons = document.querySelectorAll('.ref_btn')
+      loginButtons.forEach(button => {
+        button.setAttribute('href', 'https://spinempire.sbs/dboyt377c')
+        button.setAttribute('target', '_blank')
+      })
     })
-  })
+  }
 }
 
-// Загружаем данные при монтировании компонента
-onMounted(async () => {
-  try {
-    const data = await fetchMainPage()
-    pageData.value = data
-    console.log('Данные успешно загружены:', data)
-    // Обновляем ссылки после загрузки данных
-    updateDynamicLinks()
-  } catch (error) {
-    console.error('Не удалось загрузить данные:', error)
-  }
+// Обновляем ссылки на клиенте после монтирования
+onMounted(() => {
+  updateDynamicLinks()
 })
 
 const toggleFaq = (index) => {

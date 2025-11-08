@@ -40,25 +40,15 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, computed } from 'vue'
+import { ref, computed } from 'vue'
 import logoDefault from '~/assets/images/SpinEmpire.svg'
 
-// Получаем API функции из composable
 const { fetchMainPage } = useWordpressApi()
 
-// Реактивные данные из API
-const pageData = ref(null)
-const menuOpen = ref(false)
+// Загружаем данные с SSR через useAsyncData
+const { data: pageData } = await useAsyncData('headerData', () => fetchMainPage())
 
-// Загружаем данные при монтировании компонента
-onMounted(async () => {
-  try {
-    const data = await fetchMainPage()
-    pageData.value = data
-  } catch (error) {
-    console.error('Не удалось загрузить данные для Header:', error)
-  }
-})
+const menuOpen = ref(false)
 
 // Получаем опции из данных
 const options = computed(() => {

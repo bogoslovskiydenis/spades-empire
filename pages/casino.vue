@@ -21,14 +21,13 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, computed } from 'vue'
+import { computed } from 'vue'
 import CasinoPageBanner from '~/assets/images/CasinoPageBanner.png'
 
-// Получаем API функции из composable
 const { fetchCasinoPage } = useWordpressApi()
 
-// Реактивные данные из API
-const pageData = ref(null)
+// Загружаем данные с SSR через useAsyncData
+const { data: pageData } = await useAsyncData('casinoPage', () => fetchCasinoPage())
 
 // Computed для удобного доступа к данным
 const bannerTitle = computed(() => pageData.value?.body?.banner_title || 'Casino')
@@ -36,15 +35,27 @@ const bannerDescription = computed(() => pageData.value?.body?.banner_descriptio
 const bannerImage = computed(() => pageData.value?.body?.banner_img?.fullSettings?.[0] || CasinoPageBanner)
 const pageContent = computed(() => pageData.value?.body?.content || '')
 
-// Загружаем данные при монтировании компонента
-onMounted(async () => {
-  try {
-    const data = await fetchCasinoPage()
-    pageData.value = data
-    console.log('Данные страницы Casino загружены:', data)
-  } catch (error) {
-    console.error('Не удалось загрузить данные страницы Casino:', error)
-  }
+// SEO метатеги
+useHead({
+  title: pageData.value?.body?.meta_title || pageData.value?.body?.title || 'Casino - SpinEmpire',
+  meta: [
+    {
+      name: 'description',
+      content: pageData.value?.body?.description || 'Play best casino games at SpinEmpire online casino'
+    },
+    {
+      property: 'og:title',
+      content: pageData.value?.body?.meta_title || pageData.value?.body?.title || 'Casino - SpinEmpire'
+    },
+    {
+      property: 'og:description',
+      content: pageData.value?.body?.description || 'Play best casino games at SpinEmpire online casino'
+    },
+    {
+      property: 'og:type',
+      content: 'website'
+    }
+  ]
 })
 </script>
 

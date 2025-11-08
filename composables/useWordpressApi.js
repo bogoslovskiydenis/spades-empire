@@ -1,5 +1,5 @@
 export const useWordpressApi = () => {
-  const apiUrl = 'https://seo.dev-site.site/wp-content/themes/api/app/'
+  const apiUrl = 'https://admin.spinnempire.com/wp-content/themes/api/app/'
 
   const fetchPageData = async (type, url) => {
     try {
