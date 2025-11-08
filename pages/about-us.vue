@@ -1,223 +1,287 @@
 <template>
-  <div class="about-us">
+  <div class="about-page">
     <section class="about-section">
       <div class="about-container">
-        <h1 class="about-title">About SpinEmpire</h1>
-
-        <!-- First Text Section -->
-        <div class="about-content-block">
-          <h2 class="about-subtitle">Lorem ipsum dolor</h2>
-          <p class="about-text">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure 
-            dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non 
-            proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-          </p>
-        </div>
-
-        <!-- Feature Cards -->
-        <div class="about-cards">
-          <div class="about-card">
-            <img src="~/assets/images/about/Time.svg" alt="Fast payouts" class="about-card-icon" />
-            <h3 class="about-card-title">Fast payouts</h3>
-            <p class="about-card-text">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            </p>
-          </div>
-
-          <div class="about-card">
-            <img src="~/assets/images/about/Chat.svg" alt="Best support service" class="about-card-icon" />
-            <h3 class="about-card-title">Best support service</h3>
-            <p class="about-card-text">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            </p>
-          </div>
-
-          <div class="about-card">
-            <img src="~/assets/images/about/Gift.svg" alt="Bonuses" class="about-card-icon" />
-            <h3 class="about-card-title">Bonuses</h3>
-            <p class="about-card-text">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            </p>
+        <h1 class="about-title">{{ pageH1 }}</h1>
+        
+        <!-- Shore Description -->
+        <div class="about-shore" v-if="shoreDescription" v-html="shoreDescription"></div>
+        
+        <!-- Pros Grid -->
+        <div class="pros-container" v-if="pros.length > 0">
+          <div
+            v-for="(pro, index) in pros"
+            :key="index"
+            class="pro-card"
+          >
+            <div class="pro-icon">
+              <img
+                :src="pro.img?.fullSettings?.[0]"
+                :alt="pro.img?.alt || pro.title"
+              />
+            </div>
+            <h3 class="pro-title">{{ pro.title }}</h3>
+            <p class="pro-description">{{ pro.description }}</p>
           </div>
         </div>
-
-        <!-- General rules Section -->
-        <div class="about-content-block">
-          <h2 class="about-subtitle">General rules</h2>
-          <p class="about-text">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure 
-            dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non 
-            proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
-            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco 
-            laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore 
-            eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est 
-            laborum.
-          </p>
-        </div>
-
-        <!-- Data collection Section -->
-        <div class="about-content-block">
-          <h2 class="about-subtitle">Data collection</h2>
-          <p class="about-text">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure 
-            dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non 
-            proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-          </p>
-        </div>
+        
+        <!-- Main Content -->
+        <div class="about-content" v-if="pageContent" v-html="pageContent"></div>
       </div>
     </section>
   </div>
 </template>
 
 <script setup lang="ts">
+import { ref, onMounted, computed } from 'vue'
 
+const { fetchAboutUsPage } = useWordpressApi()
+
+const pageData = ref(null)
+
+const pageH1 = computed(() => pageData.value?.body?.h1 || 'About Us')
+const shoreDescription = computed(() => pageData.value?.body?.shore_description || '')
+const pageContent = computed(() => pageData.value?.body?.content || '')
+const pros = computed(() => pageData.value?.body?.pros || [])
+
+onMounted(async () => {
+  try {
+    const data = await fetchAboutUsPage()
+    pageData.value = data
+    console.log('Данные страницы About Us загружены:', data)
+  } catch (error) {
+    console.error('Не удалось загрузить данные страницы About Us:', error)
+  }
+})
 </script>
 
 <style scoped>
 .about-page {
   background: var(--bg-color);
+  min-height: 100vh;
 }
 
 .about-section {
-  padding-top: 48px;
-  padding-left: 80px;
-  padding-right: 80px;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  min-height: 100%;
+  padding: 48px 80px;
 }
 
 .about-container {
-  width: 800px;
-  max-width: 800px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
+  max-width: 1200px;
   margin: 0 auto;
 }
 
 .about-title {
   font-family: 'Mulish', sans-serif;
   font-weight: 800;
-  font-size: 40px;
-  line-height: 48px;
-  letter-spacing: 0%;
-  color: #FFFFFF;
-  margin: 0;
+  font-size: var(--heading-h1);
+  line-height: var(--heading-h1-line-height);
+  color: var(--menu-link);
+  margin: 0 0 32px 0;
+  text-align: center;
 }
 
-.about-content-block {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
+/* Shore Description */
+.about-shore {
+  margin-bottom: 48px;
+  padding: 24px;
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: var(--primary-radius);
+  border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-.about-subtitle {
+.about-shore :deep(h2) {
   font-family: 'Mulish', sans-serif;
   font-weight: 700;
-  font-size: 24px;
-  line-height: 32px;
-  letter-spacing: 0%;
-  color: #FFFFFF;
-  margin: 0;
+  font-size: var(--heading-h2);
+  line-height: var(--heading-h2-line-height);
+  color: var(--menu-link);
+  margin: 0 0 16px 0;
 }
 
-.about-text {
+.about-shore :deep(p) {
   font-family: 'Mulish', sans-serif;
   font-weight: 400;
-  font-size: 14px;
-  line-height: 20px;
-  letter-spacing: 0%;
-  color: rgba(255, 255, 255, 0.64);
+  font-size: var(--font-size-md);
+  line-height: 24px;
+  color: var(--white-white-alpha-64);
   margin: 0;
 }
 
-/* Cards */
-.about-cards {
-  width: 800px;
-  max-width: 100%;
-  display: flex;
-  gap: 16px;
+/* Pros Grid */
+.pros-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+  margin-bottom: 48px;
 }
 
-.about-card {
-  padding: var(--spacing-lg) 24px;
+.pro-card {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: var(--primary-radius);
+  padding: 32px 24px;
+  transition: all 0.3s ease;
   display: flex;
   flex-direction: column;
-  border-radius: 16px;
-  background: var(--surface, #171821);
+  align-items: center;
+  text-align: center;
 }
 
-.about-card-icon {
-  width: 48px;
-  height: 48px;
+.pro-card:hover {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(251, 33, 62, 0.3);
+  transform: translateY(-4px);
+}
+
+.pro-icon {
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+  background: rgba(251, 33, 62, 0.1);
+  border-radius: 50%;
+  padding: 12px;
+}
+
+.pro-icon img {
+  width: 100%;
+  height: 100%;
   object-fit: contain;
 }
 
-.about-card-title {
+.pro-title {
   font-family: 'Mulish', sans-serif;
   font-weight: 700;
-  font-size: 20px;
-  line-height: 24px;
-  letter-spacing: 0%;
-  color: #FFFFFF;
-  margin: 24px 0 8px 0;
+  font-size: var(--font-size-lg);
+  line-height: 28px;
+  color: var(--menu-link);
+  margin: 0 0 12px 0;
 }
 
-.about-card-text {
+.pro-description {
   font-family: 'Mulish', sans-serif;
   font-weight: 400;
-  font-size: 14px;
-  line-height: 20px;
-  letter-spacing: 0%;
-  color: rgba(255, 255, 255, 0.64);
+  font-size: var(--font-size-sm);
+  line-height: var(--text-sm-line-height);
+  color: var(--white-white-alpha-64);
   margin: 0;
 }
 
+/* Main Content */
+.about-content {
+  margin-top: 48px;
+}
+
+.about-content :deep(h2) {
+  font-family: 'Mulish', sans-serif;
+  font-weight: 700;
+  font-size: var(--heading-h2);
+  line-height: var(--heading-h2-line-height);
+  color: var(--menu-link);
+  margin: 32px 0 16px 0;
+}
+
+.about-content :deep(h2:first-child) {
+  margin-top: 0;
+}
+
+.about-content :deep(h3) {
+  font-family: 'Mulish', sans-serif;
+  font-weight: 700;
+  font-size: var(--heading-h3);
+  line-height: var(--heading-h3-line-height);
+  color: var(--menu-link);
+  margin: 24px 0 12px 0;
+}
+
+.about-content :deep(p) {
+  font-family: 'Mulish', sans-serif;
+  font-weight: 400;
+  font-size: var(--font-size-md);
+  line-height: 24px;
+  color: var(--white-white-alpha-64);
+  margin: 0 0 16px 0;
+}
+
+.about-content :deep(ol),
+.about-content :deep(ul) {
+  margin: 0 0 16px 0;
+  padding-left: 24px;
+}
+
+.about-content :deep(ol li),
+.about-content :deep(ul li) {
+  font-family: 'Mulish', sans-serif;
+  font-weight: 400;
+  font-size: var(--font-size-md);
+  line-height: 24px;
+  color: var(--white-white-alpha-64);
+  margin-bottom: 8px;
+}
+
+.about-content :deep(b),
+.about-content :deep(strong) {
+  font-weight: 700;
+  color: var(--menu-link);
+}
+
+.about-content :deep(a) {
+  color: var(--primary-bg);
+  text-decoration: underline;
+  transition: color 0.3s ease;
+}
+
+.about-content :deep(a:hover) {
+  color: #ff5f72;
+}
+
 /* Responsive */
-@media (max-width: 768px) {
+@media (max-width: 1400px) {
   .about-section {
-    padding-top: 48px;
-    padding-left: 16px;
-    padding-right: 16px;
-  }
-
-  .about-container {
-    width: 100%;
-    max-width: 100%;
-  }
-
-  .about-title {
-    font-size: 24px;
-    line-height: 32px;
-  }
-
-  .about-subtitle {
-    font-size: 20px;
-    line-height: 24px;
-  }
-
-  .about-cards {
-    width: 100%;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .about-card {
-    width: 100%;
+    padding: 40px 40px;
   }
 }
 
-@media (max-width: 360px) {
+@media (max-width: 968px) {
   .about-section {
-    padding-top: 48px;
-    padding-left: 16px;
-    padding-right: 16px;
+    padding: 32px 20px;
+  }
+  
+  .pros-container {
+    grid-template-columns: 1fr;
+  }
+  
+  .about-title {
+    font-size: 32px;
+    line-height: 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .about-section {
+    padding: 24px 16px;
+  }
+  
+  .about-title {
+    font-size: 28px;
+    line-height: 36px;
+    margin-bottom: 24px;
+  }
+  
+  .about-shore {
+    padding: 16px;
+    margin-bottom: 32px;
+  }
+  
+  .pros-container {
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+  
+  .pro-card {
+    padding: 24px 16px;
   }
 }
 </style>
-

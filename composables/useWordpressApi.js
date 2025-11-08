@@ -53,6 +53,10 @@ export const useWordpressApi = () => {
     return await fetchPageData('pages', 'terms-conditions')
   }
 
+  const fetchAboutUsPage = async () => {
+    return await fetchPageData('pages', 'about-us')
+  }
+
   return {
     fetchPageData,
     fetchMainPage,
@@ -61,7 +65,8 @@ export const useWordpressApi = () => {
     fetchContactPage,
     fetchResponsibleGamingPage,
     fetchPrivacyPolicyPage,
-    fetchTermsConditionsPage
+    fetchTermsConditionsPage,
+    fetchAboutUsPage
   }
 }
 
