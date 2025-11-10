@@ -97,9 +97,6 @@ useHead({
 /* Shore Description */
 .about-shore {
   margin-bottom: 48px;
-  padding: 24px;
-  background: rgba(255, 255, 255, 0.02);
-  border-radius: var(--primary-radius);
   border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
@@ -141,11 +138,6 @@ useHead({
   text-align: center;
 }
 
-.pro-card:hover {
-  background: rgba(255, 255, 255, 0.04);
-  border-color: rgba(251, 33, 62, 0.3);
-  transform: translateY(-4px);
-}
 
 .pro-icon {
   width: 56px;
@@ -154,7 +146,6 @@ useHead({
   align-items: center;
   justify-content: center;
   margin-bottom: 16px;
-  background: rgba(251, 33, 62, 0.1);
   border-radius: 50%;
   padding: 12px;
 }
