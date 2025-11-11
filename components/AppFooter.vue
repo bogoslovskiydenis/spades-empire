@@ -47,17 +47,16 @@
 
       <!-- Trust Badges -->
       <div class="footer-badges">
-        <a 
+        <div 
           v-for="(partner, index) in partners" 
-          :key="index" 
-          :href="partner.link"
+          :key="index"
           class="badge-icon"
         >
           <img 
             :src="partner.logo.fullSettings[0]" 
             :alt="partner.logo.alt || partner.logo.title" 
           />
-        </a>
+        </div>
       </div>
 
       <!-- Bottom Section -->

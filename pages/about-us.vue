@@ -8,6 +8,7 @@
         <div class="about-shore" v-if="shoreDescription" v-html="shoreDescription"></div>
         
         <!-- Pros Grid -->
+        <!--
         <div class="pros-container" v-if="pros.length > 0">
           <div
             v-for="(pro, index) in pros"
@@ -24,6 +25,7 @@
             <p class="pro-description">{{ pro.description }}</p>
           </div>
         </div>
+        -->
         
         <!-- Main Content -->
         <div class="about-content" v-if="pageContent" v-html="pageContent"></div>

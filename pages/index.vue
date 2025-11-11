@@ -20,7 +20,7 @@
 
       <!-- Features Container -->
       <div class="features-container" v-if="features.length > 0">
-        <h1 class="features-title">Features</h1>
+        <h2 class="features-title">Features</h2>
         <div class="features-description" v-if="featureContent" v-html="featureContent"></div>
 
         <div class="features-grid">
@@ -43,7 +43,7 @@
 
       <!-- Bonuses Container -->
       <div class="bonuses-container" v-if="bonuses.length > 0">
-        <h1 class="bonuses-title">Bonuses</h1>
+        <h2 class="bonuses-title">Bonuses</h2>
         <div class="bonuses-grid">
           <div 
             v-for="(bonus, index) in bonuses" 
@@ -51,8 +51,8 @@
             class="bonus-card"
           >
             <div class="bonus-content">
-              <p class="bonus-label">{{ bonus.title }}</p>
               <h3 class="bonus-title" v-html="bonus.sub_title"></h3>
+              <p class="bonus-label">{{ bonus.title }}</p>
               <p class="bonus-text">{{ bonus.description }}</p>
             </div>
             <div class="bonus-image">
@@ -67,7 +67,7 @@
 
       <!-- FAQ Container -->
       <div class="faq-container" v-if="faqItems.length > 0">
-        <h1 class="faq-title">FAQ</h1>
+        <h3 class="faq-title">FAQ</h3>
         <div class="faq-list">
           <div
               v-for="(item, index) in faqItems"
