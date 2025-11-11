@@ -6,7 +6,7 @@
         <div class="hero-content">
           <h1 class="hero-title" v-html="bannerTitle"></h1>
           <p class="hero-description">{{ bannerDescription }}</p>
-          <AppButton variant="signup" tag="a" href="https://spinempire.sbs/df2favs0t" class="hero-button">SIGN UP</AppButton>
+          <AppButton variant="signup" tag="a" :href="config.public.ref" class="hero-button">SIGN UP</AppButton>
         </div>
       </div>
 
@@ -51,8 +51,8 @@
             class="bonus-card"
           >
             <div class="bonus-content">
-              <h3 class="bonus-title" v-html="bonus.sub_title"></h3>
-              <p class="bonus-label">{{ bonus.title }}</p>
+                <h3 class="bonus-label">{{ bonus.title }}</h3>
+              <p class="bonus-title" v-html="bonus.sub_title"></p>
               <p class="bonus-text">{{ bonus.description }}</p>
             </div>
             <div class="bonus-image">
@@ -114,7 +114,7 @@ import heroBg from '~/assets/images/HeroBg.png'
 
 // Получаем данные через общий composable (переиспользует кэш между компонентами)
 const { data: pageData } = await useMainPageData()
-
+const config = useRuntimeConfig()
 const openFaqIndex = ref(0)
 
 // Computed для удобного доступа к данным
@@ -429,17 +429,18 @@ const toggleFaq = (index) => {
 .features-title {
   text-align: center;
   margin-bottom: 16px;
+    font-size: var(--heading-h1);
+    line-height: var(--heading-h1-line-height);
 }
 
 .features-grid {
   display: flex;
-  flex-wrap: wrap;
   gap: 16px;
   justify-content: center;
 }
 
 .feature-card {
-  width: 100%;
+  width: calc(25% - 16px);
   max-width: 308px;
   background: #171821;
   border-radius: 16px;
@@ -536,6 +537,8 @@ const toggleFaq = (index) => {
 .bonuses-title {
   text-align: center;
   margin-bottom: 48px;
+    font-size: var(--heading-h1);
+    line-height: var(--heading-h1-line-height);
 }
 
 .bonuses-grid {
@@ -546,7 +549,7 @@ const toggleFaq = (index) => {
 }
 
 .bonus-card {
-  width: 100%;
+  width: calc(50% - 8px);
   max-width: 632px;
   height: 300px;
   border-radius: 16px;
@@ -629,6 +632,8 @@ const toggleFaq = (index) => {
 .faq-title {
   text-align: center;
   margin-bottom: 32px;
+    font-size: var(--heading-h1);
+    line-height: var(--heading-h1-line-height);
 }
 
 .faq-list {
@@ -723,8 +728,11 @@ const toggleFaq = (index) => {
   .login-container {
     gap: 60px;
   }
-
-
+}
+@media (max-width: 1200px) {
+    .features-grid {
+        flex-wrap: wrap;
+    }
 }
 
 @media (max-width: 968px) {
@@ -807,11 +815,6 @@ const toggleFaq = (index) => {
     line-height: 24px;
   }
 
-  .bonus-title {
-    font-size: 20px;
-    line-height: 24px;
-  }
-
   .bonus-image {
     position: relative;
     width: 100%;
@@ -841,11 +844,23 @@ const toggleFaq = (index) => {
   .faq-answer {
     padding: 0 24px 20px 24px;
   }
+    .feature-card {
+        width: calc(50% - 16px);
+    }
+    .bonus-card {
+        width: 100%;
+    }
 }
 
 @media (max-width: 480px) {
   .bonus-card {
     width: 100%;
   }
+    .feature-card {
+        width: 100%;
+    }
+    .bonus-card {
+        width: 100%;
+    }
 }
 </style>

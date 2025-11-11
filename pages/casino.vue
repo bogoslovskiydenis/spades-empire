@@ -6,7 +6,7 @@
         <div class="banner-content">
           <h1 class="banner-title" v-html="bannerTitle"></h1>
           <p class="banner-description" v-if="bannerDescription">{{ bannerDescription }}</p>
-          <AppButton variant="signup" tag="a" href="https://spinempire.sbs/df2favs0t" class="banner-button">SIGN UP</AppButton>
+          <AppButton variant="signup" tag="a" :href="config.public.ref" class="banner-button">SIGN UP</AppButton>
         </div>
       </div>
 
@@ -28,7 +28,7 @@ const { fetchCasinoPage } = useWordpressApi()
 
 // Загружаем данные с SSR через useAsyncData
 const { data: pageData } = await useAsyncData('casinoPage', () => fetchCasinoPage())
-
+const config = useRuntimeConfig()
 // Computed для удобного доступа к данным
 const bannerTitle = computed(() => pageData.value?.body?.banner_title || 'Casino')
 const bannerDescription = computed(() => pageData.value?.body?.banner_description || '')

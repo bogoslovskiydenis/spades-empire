@@ -6,14 +6,13 @@
         <div class="banner-content">
           <h1 class="banner-title" v-html="bannerTitle"></h1>
           <p class="banner-description">{{ bannerDescription }}</p>
-          <AppButton variant="signup" tag="a" href="https://spinempire.sbs/df2favs0t" class="banner-button">SIGN UP</AppButton>
+          <AppButton variant="signup" tag="a" :href="config.public.ref" class="banner-button">SIGN UP</AppButton>
         </div>
       </div>
 
       <!-- Content Container -->
       <div class="content-container" v-if="pageContent">
         <div class="content-section">
-          <h1 class="page-h1">{{ pageH1 }}</h1>
           <div class="content-html" v-html="pageContent"></div>
         </div>
       </div>
@@ -29,7 +28,7 @@ const { fetchBonusesPage } = useWordpressApi()
 
 // Загружаем данные с SSR через useAsyncData
 const { data: pageData } = await useAsyncData('bonusesPage', () => fetchBonusesPage())
-
+const config = useRuntimeConfig()
 // Computed для удобного доступа к данным
 const bannerTitle = computed(() => pageData.value?.body?.banner_title || 'Bonuses')
 const bannerDescription = computed(() => pageData.value?.body?.banner_description || '')

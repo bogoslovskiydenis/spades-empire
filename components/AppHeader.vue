@@ -21,7 +21,7 @@
 
       <!-- Auth Buttons & Burger -->
       <div class="header-actions">
-        <AppButton variant="signup" tag="a" :href="headerButtonLink">Sign Up</AppButton>
+        <AppButton variant="signup" tag="a" :href="config.public.ref_sign_up">Sign Up</AppButton>
         
         <!-- Burger Menu Button -->
         <button 
@@ -74,6 +74,8 @@ const toggleMenu = () => {
 const closeMenu = () => {
   menuOpen.value = false
 }
+
+const config = useRuntimeConfig()
 </script>
 
 <style scoped>
