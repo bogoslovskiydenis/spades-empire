@@ -12,6 +12,7 @@ export default defineNuxtConfig({
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
         { name: 'description', content: 'Spades Empire Application' },
         { name: 'google-site-verification', content: 'bne_4L5mTBKNUOYJhWHuq3LFswe1H-pRGUNlnG2Nvpk' },
+        { name: 'trustpilot-one-time-domain-verification-id', content: '106c8e4d-39c3-49cf-81d1-5650dec28bd6' },
       ],
       link: [
         { rel: 'icon', type: 'image/png', href: '/favicon.png' },
