@@ -1,6 +1,6 @@
 export const useMainPageData = async () => {
   // Используем useFetch напрямую с автоматической дедупликацией
-  const apiUrl = 'https://admin.spinnempire.com/wp-content/themes/api/app/'
+  const apiUrl = 'https://admin.spinempirecasino.de/wp-content/themes/api/app/'
   // const apiUrl = 'https://seo.dev-site.site/wp-content/themes/api/app/'
 
   const { data, error } = await useFetch(apiUrl, {

@@ -25,15 +25,10 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     public: {
-      apiBase: 'https://admin.spinnempire.com/wp-content/themes/api/app/',
+      apiBase: 'https://admin.spinempirecasino.de/wp-content/themes/api/app/',
       ref: 'https://spinempire.sbs/dboyt377c',
       ref_sign_up: 'https://spinempire.sbs/df2favs0t'
     },
   },
-
-  nitro: {
-    preset: 'static',
-  },
-
-  ssr: false,
+  ssr: true,
 })

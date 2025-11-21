@@ -1,5 +1,5 @@
 export const useWordpressApi = () => {
-  const apiUrl = 'https://admin.spinnempire.com/wp-content/themes/api/app/'
+  const apiUrl = 'https://admin.spinempirecasino.de/wp-content/themes/api/app/'
 
   const fetchPageData = async (type, url) => {
     try {
@@ -57,6 +57,10 @@ export const useWordpressApi = () => {
     return await fetchPageData('pages', 'about-us')
   }
 
+  const fetchPageBySlug = async (slug) => {
+    return await fetchPageData('pages', slug)
+  }
+
   return {
     fetchPageData,
     fetchMainPage,
@@ -66,7 +70,8 @@ export const useWordpressApi = () => {
     fetchResponsibleGamingPage,
     fetchPrivacyPolicyPage,
     fetchTermsConditionsPage,
-    fetchAboutUsPage
+    fetchAboutUsPage,
+    fetchPageBySlug
   }
 }
 
