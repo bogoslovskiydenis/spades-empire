@@ -15,24 +15,32 @@ import { computed } from 'vue'
 const route = useRoute()
 const { fetchPageBySlug } = useWordpressApi()
 
-// Список slug'ов, которые обрабатываются этой динамической страницей
-const allowedSlugs = ['privacy-policy', 'terms-conditions', 'responsible-gaming']
-
 const slug = computed(() => route.params.slug as string)
 
-// Проверяем, что slug разрешен
-if (!allowedSlugs.includes(slug.value)) {
+// Загружаем данные страницы через API
+// Если страница успешно загружается, значит она существует и её можно показать
+const { data: pageData, error: pageError } = await useAsyncData(
+  `page-${slug.value}`,
+  () => fetchPageBySlug(slug.value),
+  {
+    // Если страница не найдена, вернется ошибка
+    // В этом случае показываем 404
+    transform: (data) => {
+      if (data && data.confirm === 'ok') {
+        return data
+      }
+      return null
+    }
+  }
+)
+
+// Если страница не загрузилась или вернула ошибку, показываем 404
+if (pageError.value || !pageData.value) {
   throw createError({
     statusCode: 404,
     statusMessage: 'Page not found'
   })
 }
-
-// Загружаем данные с SSR через useAsyncData
-const { data: pageData } = await useAsyncData(
-  `page-${slug.value}`,
-  () => fetchPageBySlug(slug.value)
-)
 
 // Computed для удобного доступа к данным
 const pageH1 = computed(() => pageData.value?.body?.h1 || slug.value)

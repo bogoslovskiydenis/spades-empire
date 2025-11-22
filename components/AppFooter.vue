@@ -109,6 +109,9 @@ const logoAlt = computed(() => options.value.logo?.alt || 'SpinEmpire')
 
 // Меню
 const footerMenu = computed(() => pageData.value?.body?.footer_menu || [])
+
+// Получаем termMenu напрямую из API - бэкенд должен добавлять туда новые страницы
+// Если страница добавлена в term_menu на бэкенде, она автоматически появится в футере
 const termMenu = computed(() => pageData.value?.body?.term_menu || [])
 
 // Социальные сети

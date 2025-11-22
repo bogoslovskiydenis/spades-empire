@@ -492,7 +492,8 @@ const toggleFaq = (index) => {
 }
 
 .features-description {
-  margin-bottom: 48px;
+  margin: 0 auto 48px;
+  max-width: 1440px;
   text-align: center;
 }
 
