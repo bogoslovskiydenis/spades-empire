@@ -1,0 +1,294 @@
+/* Mulish Font Face Declarations */
+@font-face {
+  font-family: 'Mulish';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/mulish-400.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Mulish';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/fonts/mulish-700.woff2') format('woff2');
+}
+
+:root {
+  /* Colors */
+  --bg-color: #12141A;
+  --menu-link: #FFFFFF;
+  --secondary-outline: #FFFFFF;
+  --primary-bg: #FB213E;
+  --white-white-alpha-64: #FFFFFFA3;
+  --surface: #171821;
+  
+  /* Spacing */
+  --spacing-md: 12px;
+  --spacing-lg: 16px;
+  --spacing-3xl: 48px;
+  
+  /* Border Radius */
+  --primary-radius: 8px;
+  
+  /* Font Sizes */
+  --font-size-sm: 14px;
+  --font-size-md: 16px;
+  --heading-h1: 48px;
+  --heading-h2: 36px;
+  --heading-h3: 24px;
+  
+  /* Line Heights */
+  --heading-h1-line-height: 56px;
+  --heading-h2-line-height: 44px;
+  --text-sm-line-height: 20px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Mulish', sans-serif;
+  background: var(--bg-color);
+  color: var(--menu-link);
+}
+
+/* Блокировка скролла для мобильного меню */
+body.menu-open {
+  overflow: hidden !important;
+  position: fixed !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+html.menu-open {
+  overflow: hidden !important;
+}
+
+/* Typography - Desktop */
+h1 {
+  font-family: 'Mulish', sans-serif;
+  font-weight: 700;
+  font-size: 40px;
+  line-height: 48px;
+  letter-spacing: 0%;
+}
+
+h2 {
+  font-family: 'Mulish', sans-serif;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 32px;
+  letter-spacing: 0%;
+}
+
+h3 {
+  font-family: 'Mulish', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0%;
+}
+
+p {
+  font-family: 'Mulish', sans-serif;
+  font-weight: 400;
+  font-size: var(--font-size-sm);
+  line-height: var(--text-sm-line-height);
+  letter-spacing: 0%;
+  color: var(--white-white-alpha-64);
+}
+
+/* Text Styles */
+.text-xl {
+  font-family: 'Mulish', sans-serif;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 32px;
+}
+
+.text-md {
+  font-family: 'Mulish', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.text-xs {
+  font-family: 'Mulish', sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+/* Button Labels */
+.button-label-sm {
+  font-family: 'Mulish', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 14px;
+}
+
+/* Label Styles */
+.label-md {
+  font-family: 'Mulish', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 16px;
+}
+
+.label-sm {
+  font-family: 'Mulish', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 14px;
+}
+
+.label-xs {
+  font-family: 'Mulish', sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 12px;
+}
+
+.label-xxs {
+  font-family: 'Mulish', sans-serif;
+  font-weight: 700;
+  font-size: 10px;
+  line-height: 10px;
+}
+
+/* Navigation Link */
+.nav-link {
+  font-family: 'Mulish', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 16px;
+  letter-spacing: 0%;
+  color: var(--menu-link);
+  text-decoration: none;
+  transition: opacity 0.3s ease;
+}
+
+.nav-link:hover {
+  opacity: 0.8;
+}
+
+/* Button Base */
+.btn {
+  font-family: 'Mulish', sans-serif;
+  font-weight: 700;
+  font-size: var(--font-size-md);
+  padding: var(--spacing-md) var(--spacing-lg);
+  border-radius: var(--primary-radius);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 1px solid;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-decoration: none;
+}
+
+/* Button Login (Secondary) */
+.btn-login {
+  height: 48px;
+  background: transparent;
+  color: var(--menu-link);
+  border: 1px solid var(--secondary-outline);
+}
+
+.btn-login:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Button Sign Up (Primary) */
+.btn-signup {
+  width: 101px;
+  height: 48px;
+  background: var(--primary-bg);
+  color: var(--menu-link);
+  border: 1px solid #FF4043;
+  border-image-source: linear-gradient(0deg, #FF4043, #FF4043),
+    linear-gradient(180deg, rgba(255, 120, 127, 0) 0%, #FF787F 100%);
+  box-shadow: 0px 4px 16.6px 0px rgba(251, 33, 62, 0.32);
+}
+
+.btn-signup:hover {
+  background: #E01E37;
+  box-shadow: 0px 6px 20px 0px rgba(251, 33, 62, 0.45);
+}
+
+.btn-signup:active {
+  transform: translateY(1px);
+}
+
+/* Mobile Typography - Phone */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 24px;
+    line-height: 32px;
+  }
+
+  h2 {
+    font-size: 20px;
+    line-height: 24px;
+  }
+
+  h3 {
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  .text-xl {
+    font-size: 24px;
+    line-height: 24px;
+  }
+
+  .text-md {
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  .text-xs {
+    font-size: 12px;
+    line-height: 16px;
+  }
+
+  .button-label-sm {
+    font-size: 14px;
+    line-height: 14px;
+  }
+
+  .label-md {
+    font-size: 16px;
+    line-height: 16px;
+  }
+
+  .label-sm {
+    font-size: 14px;
+    line-height: 14px;
+  }
+
+  .label-xs {
+    font-size: 12px;
+    line-height: 12px;
+  }
+
+  .label-xxs {
+    font-size: 10px;
+    line-height: 10px;
+  }
+
+  .nav-link {
+    font-size: 16px;
+    line-height: 16px;
+  }
+}
+
+

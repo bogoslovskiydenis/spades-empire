@@ -1,0 +1,12 @@
+.nuxt
+.output
+.idea
+node_modules
+.env
+dist
+.DS_Store
+
+
+
+
+
