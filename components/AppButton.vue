@@ -1,10 +1,10 @@
 <template>
   <component
-    :is="tag"
-    :class="buttonClass"
-    :type="tag === 'button' ? type : undefined"
-    :to="tag === 'NuxtLink' ? to : undefined"
-    :href="tag === 'a' ? href : undefined"
+      :is="tag"
+      :class="buttonClass"
+      :type="tag === 'button' ? type : undefined"
+      :to="tag === 'NuxtLink' ? to : undefined"
+      :href="tag === 'a' ? href : undefined"
   >
     <slot />
   </component>
@@ -27,13 +27,13 @@ const props = withDefaults(defineProps<Props>(), {
 
 const buttonClass = computed(() => {
   const classes = ['btn']
-  
+
   if (props.variant === 'login' || props.variant === 'secondary') {
     classes.push('btn-login')
   } else if (props.variant === 'signup' || props.variant === 'primary') {
     classes.push('btn-signup')
   }
-  
+
   return classes.join(' ')
 })
 </script>

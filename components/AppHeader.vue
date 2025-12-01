@@ -1,10 +1,10 @@
 <template>
   <header class="header">
     <!-- Overlay -->
-    <div 
-      class="menu-overlay" 
-      :class="{ 'is-visible': menuOpen }"
-      @click="closeMenu"
+    <div
+        class="menu-overlay"
+        :class="{ 'is-visible': menuOpen }"
+        @click="closeMenu"
     ></div>
 
     <div class="header-container">
@@ -15,12 +15,12 @@
 
       <!-- Navigation -->
       <nav class="header-nav" :class="{ 'is-open': menuOpen }">
-        <NuxtLink 
-          v-for="(item, index) in menu" 
-          :key="index" 
-          :to="item.permalink" 
-          class="nav-link" 
-          @click="closeMenu"
+        <NuxtLink
+            v-for="(item, index) in menu"
+            :key="index"
+            :to="item.permalink"
+            class="nav-link"
+            @click="closeMenu"
         >
           {{ item.title }}
         </NuxtLink>
@@ -28,14 +28,14 @@
 
       <!-- Auth Buttons & Burger -->
       <div class="header-actions">
-        <AppButton variant="signup" tag="a" :href="config.public.ref_sign_up">Sign Up</AppButton>
-        
+        <AppButton variant="signup" tag="a" :href="config.public.ref_sign_up" target="_blank">Sign Up</AppButton>
+
         <!-- Burger Menu Button -->
-        <button 
-          class="burger-menu" 
-          :class="{ 'is-active': menuOpen }"
-          @click="toggleMenu"
-          aria-label="Toggle menu"
+        <button
+            class="burger-menu"
+            :class="{ 'is-active': menuOpen }"
+            @click="toggleMenu"
+            aria-label="Toggle menu"
         >
           <span></span>
           <span></span>
@@ -232,7 +232,7 @@ const config = useRuntimeConfig()
   .header-container {
     padding: 0 20px;
   }
-  
+
   .header-nav {
     gap: 24px;
   }

@@ -6,25 +6,25 @@
         <div class="footer-logo">
           <img :src="logoUrl" :alt="logoAlt" />
         </div>
-        
+
         <nav class="footer-nav">
-          <NuxtLink 
-            v-for="(item, index) in footerMenu" 
-            :key="index" 
-            :to="item.permalink" 
-            class="footer-link"
+          <NuxtLink
+              v-for="(item, index) in footerMenu"
+              :key="index"
+              :to="item.permalink"
+              class="footer-link"
           >
             {{ item.title }}
           </NuxtLink>
         </nav>
 
         <div class="footer-socials">
-          <a 
-            v-for="(social, index) in socialLinks" 
-            :key="index" 
-            :href="social.link" 
-            class="social-icon" 
-            :aria-label="social.logo.title"
+          <a
+              v-for="(social, index) in socialLinks"
+              :key="index"
+              :href="social.link"
+              class="social-icon"
+              :aria-label="social.logo.title"
           >
             <img :src="social.logo.fullSettings[0]" :alt="social.logo.alt || social.logo.title" />
           </a>
@@ -33,28 +33,28 @@
 
       <!-- Payment Methods -->
       <div class="footer-payments">
-        <div 
-          v-for="(payment, index) in payments" 
-          :key="index" 
-          class="payment-icon"
+        <div
+            v-for="(payment, index) in payments"
+            :key="index"
+            class="payment-icon"
         >
-          <img 
-            :src="payment.fullSettings[0]" 
-            :alt="payment.alt || payment.title" 
+          <img
+              :src="payment.fullSettings[0]"
+              :alt="payment.alt || payment.title"
           />
         </div>
       </div>
 
       <!-- Trust Badges -->
       <div class="footer-badges">
-        <div 
-          v-for="(partner, index) in partners" 
-          :key="index"
-          class="badge-icon"
+        <div
+            v-for="(partner, index) in partners"
+            :key="index"
+            class="badge-icon"
         >
-          <img 
-            :src="partner.logo.fullSettings[0]" 
-            :alt="partner.logo.alt || partner.logo.title" 
+          <img
+              :src="partner.logo.fullSettings[0]"
+              :alt="partner.logo.alt || partner.logo.title"
           />
         </div>
       </div>
@@ -73,11 +73,11 @@
       <div class="footer-copyright">
         <p>{{ footerSubText }}</p>
         <div class="footer-legal">
-          <NuxtLink 
-            v-for="(item, index) in termMenu" 
-            :key="index" 
-            :to="item.permalink" 
-            class="legal-link"
+          <NuxtLink
+              v-for="(item, index) in termMenu"
+              :key="index"
+              :to="item.permalink"
+              class="legal-link"
           >
             {{ item.title }}
           </NuxtLink>

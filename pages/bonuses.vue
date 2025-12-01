@@ -24,7 +24,7 @@
         <div class="banner-content">
           <h1 class="banner-title" v-html="bannerTitle"></h1>
           <p class="banner-description">{{ bannerDescription }}</p>
-          <AppButton variant="signup" tag="a" :href="config.public.ref" class="banner-button">SIGN UP</AppButton>
+          <AppButton variant="signup" tag="a" :href="config.public.ref" target="_blank" class="banner-button">SIGN UP</AppButton>
         </div>
       </div>
 
